@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: everbrez's blog
+name: everbrez
 email: everbrez@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   If I could be the hero
@@ -24,9 +25,9 @@ github_username: everbrez
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-architect
+theme: jekyll-bulma-theme
 plugins:
-  jekyll-paginate
+ - jekyll-paginate
 #  - jekyll-feed
 
 # Exclude from processing.
@@ -41,3 +42,6 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 paginate: 5
+version:
+  bulma: 0.6.2
+  font-awesome: 5.0.9

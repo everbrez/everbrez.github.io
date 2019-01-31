@@ -1,3 +1,14 @@
-.current {
-  color: green;
+.tip {
+  font-size: 24px;
+  color: lightseagreen;
+  text-align: center;
+  transition: color cubic-bezier(0.215, 0.610, 0.355, 1) .3s;
+  margin-bottom: 1em;
+  &:hover {
+    color: lightcoral;
+  }
+}
+
+.homepage-content {
+  margin: 2em auto;
 }
