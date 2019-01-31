@@ -26,6 +26,7 @@ github_username: everbrez
 # Build settings
 markdown: kramdown
 theme: jekyll-bulma-theme
+remote_theme: nakorndev/jekyll-bulma-theme
 plugins:
  - jekyll-paginate
 #  - jekyll-feed
