@@ -146,6 +146,7 @@ class MyArray {
 | Undefined | undefined => NaN                                                                                             |
 | String    | \`${number}\` => number(包含浮点，其中十六进制转化为等值的十进制，忽略八进制等前导零), '' => 0, other => NaN |
 | Object    | 先调用valueOf()，按照前面规则，若得到NaN，再调用toString()，按照上述规则                                     |
+
 > 一元操作符 `+`与`Number()`作用相同
 > 在对象转基本类型的时候，可以使用`Symbol.toPrimitive`来控制其行为
 
