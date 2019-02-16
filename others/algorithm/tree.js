@@ -26,6 +26,14 @@ class Tree {
       this.insert(data, tree.right)
     }
   }
+
+  print(tree = this.root, index = 0) {
+    if (tree !== null) {
+      this.print(tree.left, index + 1)
+      this.print(tree.right, index + 1)
+      console.log(tree.data)
+    }
+  }
 }
 
 class Node {
@@ -35,3 +43,11 @@ class Node {
    this.right = right
  } 
 }
+
+const tree = new Tree(20)
+
+for(let i = 0; i < 100; i++) {
+  tree.insert(i)
+}
+
+tree.print()
