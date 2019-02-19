@@ -1,9 +1,10 @@
-class MyClass {
-  get [Symbol.species]() {
-    return MyClass
-  }
+const a = {}
+a[Symbol.iterator] = function *() {
+  yield 23
+  yield 21
+  yield 10
 }
 
-class MyClass2 extends MyClass {
-  
-}
+const b = [...a]
+
+console.log(b)

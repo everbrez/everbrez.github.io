@@ -743,3 +743,87 @@ class MyClass {
 
 # 数组
 
+- Array.of
+- Array.from
+- Array.prototype.find()
+- Array.prototype.findIndex()
+
+## Array.of
+这个函数是为了解决ES5中 `new Array()`中的参数问题：如果输入的是一个数字，则变成数组的length，否则变成数组的元素
+在`Array.of()`中，无论输入什么都会变成数组的元素
+> Array.of 不通过 Symbol.species的值确定返回值类型，它使用当前构造函数的this值来确定正确的返回数据类型
+
+## Array.from()
+类数组 => 数组
+接收一个**可迭代**对象或类数组对象作为第一个参数，最终返回一个数组，可用展开符来代替
+接收第二个参数表示映射，即类似 value => value + 1
+接收第三个参数表示映射函数的this值
+
+## find() 和 findIndex()
+===--> 与 indexOf 和 lastIndexOf
+二者都接收两个参数，一个为回调函数，另一个为回调函数的this值。回调函数的参数值与map一致
+如果符合查找的值，返回true。find会返回查找到的值，findIndex会返回查找的Index
+
+## fill()
+接收三个参数，填充的值，开始索引（包含），结束索引（不包含），如果为负数则加上数组长度
+
+## copyWithin()
+接收三个参数，第一个是开始填充值的索引位置，第二个是开始复制值的索引位置，第三个为指定停止复制值的位置
+> 如果只指定两个，就会从复制值索引开始直到没有更多可复制的值为止。
+
+## 定型数组 typed array
+这是一种用于处理数值类型数据的专用数组，将任何数字转换为一个包含数字比特的数组
+
+定型数组支持存储和操作以下8中数据类型
+
+- int8
+- uint8
+- int16
+- uint16
+- int32
+- uint32
+- bigInt64
+- bigUInt64
+- float32
+- float64
+
+### 数组缓冲区 ArrayBuffer
+```js
+let buffer = new ArrayBuffer(10) // 分配 10Byte
+buffer.byteLength //10
+let buffer2 = buffer.slice(3,4)
+buffer2.byteLength // 1
+buffer.byteLength // 10
+```
+> 数组缓冲区包含的实际字节在创建时就已经确定，可以修改缓冲区数据，但是不能改变缓冲区的尺寸大小
+
+### 视图 DataView
+视图是用来操作内存的接口，视图可以操作数组缓冲区或者缓冲区字节的子集，并按照其中一种数据类型来读取和写入数据。
+支持上述8种数据类型
+```js
+let view = new DataView(buffer, 0, 8)
+```
+DataView接收三个参数：buffer，开始索引，数量
+view属性
+- buffer
+- bufferOffset
+- byteLength
+
+#### 读取和写入数据
+get 方法接收两个参数：读取数据时的偏移量，可选布尔值，表示是否按照小序端进行读取。
+set 方法接收三个参数：写入数据偏移量，写入的值，可选布尔值
+
+- getInt8()
+- setInt8()
+- getUint8()
+- setUint8()
+- ...
+- getFloat32()
+- getFloat64()
+
+#### 定型数组即视图
+构造器
+- Int8Array
+- Uint8Array
+- ...
+
