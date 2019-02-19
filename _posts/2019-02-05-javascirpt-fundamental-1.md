@@ -540,3 +540,33 @@ WeakMap键名对应的value是强引用，value可以是任何类型
 
 - WeakMap也不支迭代，所以不支持 clear、forEach
 - WeakMap可以用来创建私有数据
+
+
+# 迭代器iterator和生成器generator
+
+## generator
+
+生成器是一种返回迭代器的函数，通过 function 关键字后的星号*来表示，函数还会用到新的关键字 yield
+
+```js
+function *generator() {
+  const a = yield 1;
+  console.log('a:',a) // 如果在外部不显式向 next 函数传入参数，则 yield 返回值永远为 undefined
+  const b = yield 2;
+  console.log('b:', b)
+  const c = yield 3;
+  console.log('c:',c)
+}
+```
+
+每遇到一个`yield`语句都会停止，调用next方法的时候才会继续运行
+
+**yield关键字只能在generator内部运行，与return关键字一样，不能穿透函数边界，所以即使写在函数内部定义的函数里面也会报错 sytax error**
+
+> 不能使用箭头函数创建 生成器
+
+### 可迭代对象
+
+可迭代对象具有 `Symbol.iterator`属性，其可以通过指定函数返回一个作用于附属对象的迭代器。其可以影响`for-of`循环
+> 如果将`for-of`循环用于不可迭代对象，null或undefined，会抛出错误 TypeError,而`for-in`就不会
+
