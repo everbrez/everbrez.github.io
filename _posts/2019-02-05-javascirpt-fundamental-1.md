@@ -1066,3 +1066,17 @@ revoke()
 
 proxy.name = 233 // TypeError
 ```
+
+## 从构造函数返回一个代理
+
+```js
+class Person {
+  constructor() {
+    return new Proxy(this, {})
+  }
+}
+
+let person = new Person()
+
+person instanceof Person // true
+```
