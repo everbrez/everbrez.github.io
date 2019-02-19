@@ -570,3 +570,176 @@ function *generator() {
 可迭代对象具有 `Symbol.iterator`属性，其可以通过指定函数返回一个作用于附属对象的迭代器。其可以影响`for-of`循环
 > 如果将`for-of`循环用于不可迭代对象，null或undefined，会抛出错误 TypeError,而`for-in`就不会
 
+一般自己创建的对象都是不可迭代的，需要添加`Symbol.iterator`来使其变成可迭代对象
+```js
+let collections = {
+  *[Symbol.iterator]() {
+    //code
+  }
+}
+```
+
+### 内建迭代器
+
+对于三种可迭代对象：数组、Set集合、Map集合，有：
+
+- entries() 返回一个迭代器，其值为多个键值对，Map的默认迭代器
+- values() 返回一个迭代器，其值为集合的值，数组和Set的默认迭代器
+- keys() 返回要给迭代器，其值为所有键名
+
+```js
+const colors  = ['red', 'yellow', 'blue']
+
+for(let color of colors.values()) {
+  console.log(color)
+}
+```
+
+> 对于数组，`for-of`循环返回的是其数字类型的索引，`for-in`循环返回的是数组属性的索引（即如果给数组添加属性a，也会在for-in循环中遍历）
+
+可以用解构语法在`for-of`循环中。
+
+> 字符串也有迭代器，通过使用`for-of`循环可以输出支持unicode的字符
+
+### Nodelist 迭代器
+
+Nodelist也内置了迭代器，其行为与数组一致
+
+### 高级迭代器功能
+
+第一次调用`next()`方法的时候无论传进什么参数都会被丢弃。由于传给`next()`方法的参数会代替上一个yield的返回值，而第一次调用next的时候前不会执行任何的yield语句，所以第一次调用next方法的时候传递参数是毫无意义的
+
+#### 在迭代器中抛出错误
+`iterator.throw(new Error())`，这个函数可以返回类似next返回的值（但是如果内部error没有处理，就会导致代码停止执行）
+
+#### 返回语句
+在生成器中定义函数的返回语句，会使迭代器提早进入done状态，并且当状态为done的时候，value为return的返回值（只会出现一次，之后会重置为undefined）
+
+> 展开运算符和`for-of`循环会直接忽略return语句的返回值，只要done状态变成true就会退出循环
+
+#### 委托生成器
+将两个迭代器合二为一
+```js
+function *colorGenerator() {
+  yield 'red'
+  yield 'blue'
+  return 2 // 这个值不会输出
+}
+
+function *numGenerator(count) {
+  for(let i = 0; i < count; i++) yield i
+}
+
+function *generator() {
+  let count = yield *colorGenerator() // 其中 count 的值为 colorGenerator中的return值
+  yield *numGenerator(count)
+}
+
+const iterator = generator()
+
+// result
+iterator.next()
+// {value: "red", done: false}
+iterator.next()
+// {value: "blue", done: false}
+iterator.next()
+// {value: 0, done: false}
+iterator.next()
+// {value: 1, done: false}
+iterator.next()
+// {value: undefined, done: true}
+```
+
+> 也可以直接用于字符串，使用其默认迭代器 `yield *'Hello World'`
+
+# class
+属性只能在constructor上构建（React可以直接在class块内）
+`typeof`返回`function`
+1. 函数声明会提升，但是类声明和let、const一样不能被提升
+2. 在类中，所有方法都是不可枚举的
+3. 每一类都有一个名为`[[Construct]]`内部方法，而方法中不含有`[[Construct]]`，用new调用这些方法会导致报错（在对象中也是一样）
+4. 使用除关键字`new`以外的语法会抛出错误TypeError
+5. 在类中修改类名会导致报错，在一般函数上则不会报错。类名在类中为常量（类似与const声明）。
+6. 类中可以使用`extends`语法
+7. 在类中，`new.target`永远不为undefined，指向构造函数（extends中，在基类的构造函数和派生构造函数是一样的）
+
+表达式声明与声明式声明区别：函数的name不同
+
+命名类表达式（跟function 一样）：
+```js
+let personClass = class personClass2 {}
+
+typeof personClass // function
+typeof personClass2 // undefined，只能在class内部使用
+```
+
+另一种声明方式
+```js
+let person = new class {
+  constructor(name) {
+    this.name = name
+  }
+
+  say() {
+    console.log('Hi ', this.name)
+  }
+}('foo')
+
+
+```
+
+## 访问器属性
+```js
+class {
+  constructor(name) {
+    this.name = name
+  }
+
+  get age() {
+    return 12
+  }
+
+}
+```
+
+## 生成器方法
+```js
+class {
+  *generator() {}
+}
+```
+
+## super
+1. 只能在派生的构造函数中使用super()，即使用的`extends`语法创建的类，否则会报错
+2. 构造函数在访问this之前一定要使用super，它负责初始化this，否则会报错
+3. 如果不想使用this只能让constructor返回一个对象，但是此时该对象不会继承prototype
+
+**如果基类有静态成员，那么这个静态成员在派生类中也可使用**
+
+ES5中传统继承内建对象：先由派生类型创建this，然后调用基类型的构造函数（Array.apply(this)）。这意味着this的值开始是指向派生类型的，但随后会被来自（Array）的其他属性修饰
+ES6中的继承：先由基类创建this值，访问基类所有内建功能，然后再正确地接收所有与之相关的功能。
+
+## Symbol.species
+用于定义返回函数的静态访问器属性
+以下内建类型均已定义：
+- Array
+- ArrayBuffer
+- Map
+- Set
+- Promise
+- RegExp
+- Typed arrays
+
+类似这样
+```js
+class MyClass {
+  get [Symbol.species]() {
+    return this
+  }
+}
+```
+
+> 一般来说，只想要在类中调用`this.constrctor`，就应该会使用`Symbol.species`属性
+
+# 数组
+
