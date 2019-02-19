@@ -208,3 +208,335 @@ obj + 1  // 234
 3. `String.fromCodePoint()`,`.codePointAt`,`.normalize()`
 4. 正则修饰符`u`，使用了两个编码单元处理的字符可以当成一个字符处理。单元操作模式 => 字符模式
 5. 可以使用正则来获得字符串的长度
+6. 增加以下方法：
+   1. includes()
+   2. startsWith()
+   3. endsWith() 都可以通过设置偏移量
+   4. repeat()
+
+# 正则
+
+flag：
+
+- g 全局模式
+- i 不分大小写
+- m 多行
+- u unicode支持
+- y sticky属性，表示是否可以设置index
+
+属性：
+
+- flags
+- source
+- lastIndex
+
+方法：
+
+- exec() 专门为捕获组设置的，接受一个参数，返回一个匹配项数组：第一个是整个模式匹配的字符串，其他是捕获组。同时还有index和input额外属性
+- test() 返回布尔值
+
+> 对于exec来说，如果设置了g标志，每次也只会返回一个匹配项。
+
+# 模板字面量
+
+## 标签模板
+
+```js
+let message = tag`Hello${' '}World` // tag 可以是一个函数
+function tag(literals, ...substitution) {
+  // literals 为一个数组，它表示被${}分隔的各个字符串
+  // substitution是每一个${}求值后的value
+  // 可以使用literals.raw[i] 获取相应的原生值，同String.raw
+}
+```
+
+# 函数
+
+函数的参数也位于临时死区，即前面一个参数默认值不能引用后面一个参数
+**在setter中，不定参数只有一个**
+
+```js
+let object = {
+  set name(...value) { // syntax error
+
+  }
+}
+```
+
+函数内部有两个方法`[[Call]]`和`[[Construt]]`
+当使用`new`来调用的时候，使用`[[Construt]]`，否则通过`[[Call]]`
+
+```js
+function Person(name){
+  if (this instanceof Person) {
+    // 通过关键字 new 调用
+  }
+}
+```
+
+当时通过上述方法判断是否new调用会出现以下后果：
+
+```js
+let person = new Person()
+Person.call(person) 
+```
+
+所以采用`new.target`来判断是否new调用，如果是new调用，target内容为操作符的目标，即Person
+
+块状作用域中声明函数，处于临时死区
+
+### 箭头函数
+
+- 没有this、super、argument和new.target的绑定
+- 不能通过new调用
+- 没有原型
+- 不能改变this的指向
+- 没有argument的绑定，始终访问外围函数的argument对象
+
+## 尾调用优化
+
+```js
+function doSomething() {
+  return doSomething()
+}
+```
+
+触发条件：
+
+1. 尾调用不访问当前栈帧的变量
+2. 在函数内部，尾调用处于最后一条语句
+3. 尾调用的结果作为函数返回
+
+# Object
+
+## Object.is()
+
+如果两个参数具有相同的类型且具有相同的值，则返回true
+
+```js
+Object.is(+0, -0) //false
+Object.is(NaN, NaN) // true
+```
+
+## Object.assign()
+
+mixin 混合
+
+由于`Object.assign`使用了赋值操作，所以不能够将访问器属性复制到对象，最终会变成数据属性
+
+`const descriptor = Object.getOwnPropertyDescriptor(object, key)`
+
+## 自由属性枚举顺序
+
+1. 数字键升序
+2. 字符串按照加入顺序
+3. symbol按照加入顺序
+
+`Object.getOwnPropertyNames(obj)`
+
+## 原型
+
+`Object.getPropertyOf(obj)` 和 `setPropertyOf(obj)`
+
+## super
+
+super相当于对象原型的指针`Object.getPropertyOf(this)`
+**如果在对象外的地方定义函数，使用super关键字会抛出 syntax error**
+使用super的时候会调用函数的`[[HomeObject]]`属性获取原型，函数的`[[HomeObject]]`在定义的时候就确定了，所以就导致了下面的事情发生：
+
+```js
+const obj1 = {
+  say() {
+    super.say()
+  }
+}
+
+Object.setPrototypeOf(obj1, {
+  say() {
+    console.log('obj1\'s prototype')
+  }
+})
+
+const obj2 = {}
+Object.setPrototypeOf(obj2, {
+  say() {
+    console.log('obj2\' prototype')
+  }
+})
+
+obj2.say = obj1.say
+
+const say = obj1.say
+
+obj2.say() // obj1's prototype
+
+say() // obj1's prototype
+```
+
+## 解构
+
+非同名局部变量赋值
+
+```js
+const node = {
+  name: 'foo',
+  age: 2
+}
+
+const { name:localName, age:localAge } = node
+
+console.log(localName, localAge) // foo 2
+```
+
+嵌套对象解构
+
+```js
+const node = {
+  loc: {
+    start: 2
+  }
+}
+
+const { loc: {start}} = node
+```
+
+数组结构
+
+```js
+let colors = ['red', 'green', 'blue']
+
+let [, , thirdColor] = colors
+```
+
+交换变量
+
+```js
+[a, b] = [b, a]
+```
+
+函数参数解构
+
+```js
+function test(name ,value, { secure, path }) {}
+```
+
+# Symbol
+
+Symbol是一个原始值，所以不能使用new语法`new Symbol`(Type Error)，需要直接调用`const firstName = Symbol()`
+
+创建Symbol的时候可以可选添加一段文本描述，这个文本描述存储在内部的`[[Description]]`中，只有使用`toString()`才能访问到
+
+Symbol可以使用在：
+
+1. 对象字面量属性名
+2. `Object.defineProperty()`
+3. `Object.defineProperties()`
+
+**使用`Object.defineProperty()`和`Object.defineProperties()`创建新的属性时候，默认为false**
+
+## Symbol 共享体系
+
+`Symbol.for()`接受一个字符串参数，这个方法首先会在全局Symbol注册表中搜索键为参数的Symbol，如果存在，则返回已有Symbol，如果不存在，则创建一个新的Symbol
+
+> symbol 不能转化为数字和字符串，所以在数字操作符中会报错，但是可以用在逻辑操作符中，其布尔等价值为true， 在 </>比较中，会将symbol转化为number，所以也不能使用
+
+## 属性检索
+
+一般可以通过下面的方法检索属性值
+
+- Object.keys() 返回可枚举型
+- Object.getOwnPropertyNames() 不考虑枚举一律返回
+- Object.getOwnPropertySymbols() 检索对象中的symbol属性
+
+## Well-konwn Symbol
+
+- Symbol.hasInstance 执行instanceof时调用的内部方法，其为不可写不可配置不可枚举，需要用`Object.defineProperty`
+- Symbol.isConcatSpreadable 一个布尔值，表示使用`concat`是否将集合规整到同一层级
+- Symbol.iterator 返回迭代器
+- Symbol.match 调用`String.prototype.match`时候调用方法，用于比较字符串
+- Symbol.replace
+- Symbol.search
+- Symbol.species 创建派生类的构造函数
+- Symbol.split 用于分割字符串
+- Symbol.toPrimitive 返回对象原始值，传入一个hint
+- Symbol.toStringTag 调用`toString`时候的方法
+- Symbol.unscopables 定义一些不可被with语句引用的对象属性名称集合
+
+```js
+let hasLengthOf10 = {
+  [Symbol.search]: function(vaue) {
+    return value.legnth === 10 ? 0 : -1
+  }
+}
+
+let message1 = 'hello world'
+message1.search(hasLengthOf10)
+```
+
+# Set 与 Map
+
+`in`操作符除了会检索对象中的属性，还会检索原型。
+
+## Set
+
+```js
+let set = new Set()
+```
+
+在set中，不存在类型转换，（引擎内部采用Object.is来检测两个值是否一致）
+**Set 可以接受所有可迭代对象作为参数，数组、Set集合、Map集合等都是可迭代的**
+
+方法：
+
+- add()
+- has()
+- delete()
+- clear()
+- forEach() 同数组方法，回调函数前两个参数相同，接受第二个参数（this的值）
+```js
+dataSet.forEach(function(){}, this)
+```
+- size
+
+> 展开运算符可以将想Set集合的可迭代对象转换为数组
+
+创建无重复元素新数组
+
+```js
+function eliminateDuplicates(items) {
+  return [...new Set(items)]
+}
+```
+
+## WeakSet
+
+WeakSet 只存储对象的弱引用，并且不可以存储原始值。集合中的弱引用如果是对象唯一的引用，则会被回收并释放相应内存。
+
+> 如果 Weak Set 中包含任何原始值，就会抛出错误Type Error
+
+- WeakSet 不可迭代，所以没有for-of循环，forEach方法，keys和values方法，也没有clear方法
+- 不支持size属性
+
+## Map
+
+Map的键名和对应的值支持所有的数据类型，键名的等价性是通过`Object.is()`方法进行判断的。
+
+方法：
+
+- set()
+- get() 如果不存在则返回 undefined
+- has(key)
+- delete(key)
+- clear()
+- forEach() 同数组方法
+- size
+
+**Map同Set，可以通过传数组来初始化，其中每一个键值对都是一个数组**
+
+## WeakMap
+
+WeakMap是弱引用的Map集合，在WeakMap的键名必须是一个对象，如果使用非对象也会报错。如果在弱引用之外不存在其他强引用，GC会回收这个对象，同时会移除WeakMap中的键值对。
+WeakMap键名对应的value是强引用，value可以是任何类型
+
+- WeakMap也不支迭代，所以不支持 clear、forEach
+- WeakMap可以用来创建私有数据
