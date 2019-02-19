@@ -827,3 +827,186 @@ set 方法接收三个参数：写入数据偏移量，写入的值，可选布�
 - Uint8Array
 - ...
 
+# Promise
+
+## 异步编程
+事件模型
+```js
+element.onclick = function() {}
+```
+回调模型
+```js
+// nodejs
+readFile('file.txt', function(err, data) {
+  if (err) throw err
+  console.log(data)
+})
+```
+
+问题：回调地狱、实现并行执行两个操作，同时完成的时候通知或者优先完成的通知
+
+## Promise的生命周期
+1. pending
+2. Fulfilled / Rejected
+
+内部属性`[[PromiseStatus]]`被用来表示Promise的三种状态`pending, fulfilled, rejected`
+
+方法：
+- then() 第一个为处理fulfilled状态的，第二个为处理rejected状态的
+- catch() 发生错误使触发状态的
+- finally() 无论是fulfilled还是rejected都会触发
+> 如果一个Promise处于已处理状态，在这之后添加到任务队列中的处理程序仍将执行，会将其添加到任务队列中。
+
+- Promise.resolve()
+- Promise.reject()
+> 如果向上面两个函数传进去一个Promise，则会把这个promise直接返回
+> 如果是非Promise的thenable对象（拥有then方法并且接收resolve和reject这两个参数的普通对象），
+> 那么这些方法会创建一个新的Promise，并在then函数中被调用
+```js
+let thenable = {
+  then(resolve, reject) {
+    reject(23)
+  }
+}
+
+// let p0 = Promise.resolve(2)
+
+let p = Promise.resolve(thenable)
+// p status:rejected value:23
+```
+
+## 错误处理
+对于一些没有拒绝处理程序的Promise，JavaScript没有强制报错(浏览器在最新版本报错)
+在nodejs中，处理Promise拒绝时会触发process对象上两个事件
+- unhandledRejection 在一个事件循环中
+- rejectionHandled 在一个事件循环后
+function(reason, promise){}
+
+在浏览器中，触发window上的两个事件：
+- unhandledrejection
+- rejectionhandled
+function(type, promise, reason)
+
+## 多个Promise
+- Promise.all()，接收一个可迭代对象，如数组，then返回的value是一个数组，如果一个被拒绝，那么整个promise就会立即进入拒绝状态
+- Promise.race()，参数同上，如果有一个位于完成状态就会触发fulfilled或者rejected状态
+
+
+# Proxy and Reflection
+
+调用`new Proxy()`可创建代替其他目标（target）对象的代理，它虚拟化了目标，所以二者看起来功能一致。
+代理可以拦截JavaScript引擎内部目标的底层对象操作，这些底层操作被拦截后会触发相应特定操作的陷阱函数。
+每一个代理陷阱对应着一个命名和参数都相同的Reflect方法。
+
+代理陷阱（traps）
+1. get  read
+2. set  write
+3. has  in operator
+4. deleteProperty delete operator
+5. getPrototypeOf Object.getPrototypeOf
+6. setPrototypeOf Object.setPrototypeOf
+7. isExtensible Object.isExtensible
+8. preventExtensions  Object.preventExtensions
+9. getOwnPropertyDescriptor Object.getOwnPropertyDescriptor
+10. defineProperty  Object.defineProperty
+11. ownKeys Object.keys()/Object.getOwnPropertyNames()/Object.getOwnPropertySymbols()
+12. apply 调用一个函数
+13. construct 用new调用一个函数
+
+> 不适用陷阱的处理程序等价于简单的转发处理
+
+## set trap
+接收4个参数
+- trapTarget 代理的目标对象
+- key
+- value
+- receiver 操作发生的对象（通常是代理）
+
+```js
+const target = {
+  name: 'foo'
+}
+
+const proxy = new Proxy(target, {
+  set(trapTarget, key, value, receiver) {
+    // only change to own property
+    if (!trapTarget.hasOwnProperty(key)) {
+      if (typeof value !== 'number' || isNaN(value)) {
+        throw TypeError('must be number')
+      }
+    }
+
+    return Reflect.set(trapTarget, key, value, receiver)
+  }
+})
+
+// you can change the property exited in target wharever you want
+proxy.name = 'mike'
+
+// when you assign a string to a property that do not exited in target
+// you will get a TypeError
+proxy.count = 'foo' // error
+
+```
+
+Reflect是set陷阱对应的反射方法和默认特性，它和set代理陷阱一样接受相同的4个参数。
+如果属性已设置陷阱应该返回true，如果未设置返回false
+
+## get trap
+
+- trapTarget
+- key
+- receiver
+
+## has trap
+
+- trapTarget
+- key
+
+## deleteProperty trap
+如果成功返回true，如果失败返回false
+- trapTarget
+- key
+
+## 原型代理
+### setPrototypeOf
+- trapTarget
+- proto
+> 如果操作失败返回一定是false，此时Object.setPrototypeOf()会报错
+### getPrototypeOf
+- trapTarget
+> getPrototypeOf必须返回对象或者null
+> 返回值检查可以确保Object.getPrototypeOf()返回的总是预期的值
+
+> Object.getPrototypeOf如果传进一个非对象值，会强制转化成对象
+> 但是Reflect.getPrototypeOf传进一个非对象值，会报错
+
+## 对象可扩展性陷阱
+### preventExtensions & isExtensiable
+二者都接收一个参数，如果成功返回true，如果失败返回false
+- trapTarget
+
+## 属性描述符陷阱
+### defineProperty
+- target
+- key
+- descriptor
+
+> 无论什么对象传进去defineProperty，都只有属性：configurable,enumerable,value,writable,set,get,多余的将会设置为undefined
+**返回值为false或者true**，其中false时候会抛出错误
+Object.defineProperty 返回第一个参数，即target
+### getOwnPropertyDescriptor
+- trapTarget
+- key
+
+> 返回一个对象，null或者undefined，对象中（descriptor）不允许出现除了上述属性外的属性，否则报错
+> 若调用 `Reflect.getOwnPropertyDescriptor`传入原始值，会抛出抛出一个错误
+> 但是调用`Object.getOwnPropertyDescriptor`传入原始值，会强制转化成对象
+
+```js
+let descriptor = Object.getOwnPropertyDescriptor(2, 'name') // undefined
+
+let descriptor = Reflect.getOwnPropertyDescriptor(2, 'name') // throw Error
+```
+
+## ownKeys trap
