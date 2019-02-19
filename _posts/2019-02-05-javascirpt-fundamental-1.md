@@ -771,6 +771,11 @@ class MyClass {
 接收三个参数，第一个是开始填充值的索引位置，第二个是开始复制值的索引位置，第三个为指定停止复制值的位置
 > 如果只指定两个，就会从复制值索引开始直到没有更多可复制的值为止。
 
+## includes()
+1. NaN可以识别
+2. -0 与 +0 不可以识别，与indexOf一样
+> indexOf 使用全等操作符
+
 ## 定型数组 typed array
 这是一种用于处理数值类型数据的专用数组，将任何数字转换为一个包含数字比特的数组
 
@@ -1079,4 +1084,67 @@ class Person {
 let person = new Person()
 
 person instanceof Person // true
+```
+
+# Module
+
+1. 模块的顶部，this的值为undefined
+2. 模块不支持HTML风格的注释
+
+导出：
+
+```js
+export const a = 2
+export function b() {}
+export class Person{}
+
+export default a
+export {a as sum, b, Person} // 导出的是sum
+```
+
+导入：
+
+```js
+import { identifier1 } from './main.js'
+import * as sample from './main.js'
+```
+
+> 这个语法不是解构
+
+重新导出一个绑定
+
+```js
+export { sum } from './main.js'
+```
+
+在浏览器中使用模块：
+
+1. script 标签 type 设置为 "module"，不需要添加defer参数，因为默认存在
+
+```html
+<script type="module" src="module.js" ></script>
+<script type="module">
+  import { sum } from "./example.js"
+</script>
+```
+
+执行顺序：（显示引入scirpt和隐式引入的所有模块都是按需加载并执行）
+
+1. 下载module.js
+2. 递归下载并解析module.js中导入的资源
+3. 解析内联模块
+4. 递归解析内联模块中导入的资源
+
+加载完毕后：
+
+1. 递归执行module.js中导入的资源
+2. 执行module.js
+3. 递归执行内联模块中导入的资源
+4. 执行内联模块.
+
+
+2. 文件当成woker执行
+
+```js
+let worker = new Worker('module.js', {type: 'module'})
 ```
