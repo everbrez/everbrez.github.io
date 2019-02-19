@@ -1010,3 +1010,59 @@ let descriptor = Reflect.getOwnPropertyDescriptor(2, 'name') // throw Error
 ```
 
 ## ownKeys trap
+ownKeys可以拦截内部方法`[[OwnPropertyKeys]]`，可以通过一个数组的值覆写其行为
+
+该数组被用于：
+
+- getOwnPropertyNames()
+- getOwnPropertySymbols()
+- Object.keys()
+- Object.assign()
+
+参数：
+
+- trapTarget
+
+## apply & construct
+改变函数内部`[[Call]]`以及`[[Contruct]]`属性
+
+### apply
+
+- trapTarget
+- thisArg this的值
+- argumentsList
+
+### construct
+
+- trapTarget
+- argumentsList
+
+> Reflect.construct()方法除了接受上面两个参数之外，还接受第三个参数：newTarget
+> 原型链的查找不受代理的影响
+
+应用：验证函数参数，拦截`new`调用，覆写抽象基类构造函数，可调用类构造函数。。。（在自己无法控制代码的时候使用代理，如Number()）
+
+## 可撤销代理
+
+通常，在创建代理之后，代理不能脱离其目标。
+可以使用`Proxy.revocale()`方法创建可撤销的代理。返回一个对象：1. proxy 2. revoke （撤销代理用的函数）
+执行`revoke()`之后，任何与代理对象交互的尝试都会出发代理陷阱抛出错误
+
+```js
+const target = {
+  name: 'foo'
+}
+
+const { proxy, revoke } = Proxy.revocable(target, {
+  set(...args) {
+    return Reflect.set(...args)
+  }
+})
+
+proxy.name = 12
+console.log(proxy.name)
+
+revoke()
+
+proxy.name = 233 // TypeError
+```

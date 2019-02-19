@@ -2,16 +2,15 @@ const target = {
   name: 'foo'
 }
 
-const proxy = new Proxy(target, {
-  getPrototypeOf(target) {
-    return 2333
+const { proxy, revoke } = Proxy.revocable(target, {
+  set(...args) {
+    return Reflect.set(...args)
   }
-
 })
 
-// you can change the property exited in target wharever you want
-proxy.name = 'mike'
+proxy.name = 12
+console.log(proxy.name)
 
-// when you assign a string to a property that do not exited in target
-// you will get a TypeError
-proxy.count = 'foo' // error
+revoke()
+
+proxy.name = 233
