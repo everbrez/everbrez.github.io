@@ -1,6 +1,17 @@
-const http = require('http')
+function run(taskDef) {
+  const task = taskDef()
+  let result = task.next()
 
-let num = 0
-http.createServer((req, res) => {
-  console.log(++num)
-}).listen(8888)
+  function step() {
+    const {value, done} = result
+    if (!done) {
+      if (value instanceof Promise) {
+        value.then(value => {result = task.next(value); step()})
+      } else {
+        Promise.resolve(value).then(value => {result = task.next(value); step()})
+      }
+    }
+  }
+
+  step()
+}
