@@ -104,6 +104,7 @@ localeCompare 如果字符串在字母表中中应该排在字符串参数之前
 - getAllResponseHeaders() 由`CRLF`分隔的所有响应头，如字符串，或者null（没有收到响应）
 - abort() 如果请求已经发送，则终止请求。然后将状态设置为UNSENT
 - onprogress() 
+- overrideMimeType 可以设置自定义类型，上传时候可以使用
 - .timeout 设置超时
 
 ## 状态
@@ -117,6 +118,8 @@ readystate：
 - 3 LOADING 响应体下载中
 - 4 DONE 请求完成
 
+事件：（同下）
+
 ## XMLHttpRequest.upload 
 该方法返回一个XMLHttpRequestUpload对象，可以用来监视上传的进度
 事件：
@@ -128,3 +131,68 @@ readystate：
 - timeout 上传超时
 - loadend 上传结束，无论是load还是timeout还是error，都会触发这个事件
 
+如果拔出网线，则会：
+1. 如果上传结束，那么触发xhr.onerror
+2. 如果上传未完成，那么触发xhr.onerror以及触发xhr.upload.onerror
+
+## 兼容性问题
+1. IE11不支持responseType为json
+2. 某些低版本firefox和chrome不支持.timeout
+
+## XMLHttpRequest Level 2
+1. uploading progress events
+2. uploading/doloading binary data.
+
+> Blob Binary Large Object, 二进制大对象。Blob对象是二进制数据，类似于文件对象的二进制对象。File继承自Blob
+> `Blob(blobParts [, option])` 第一个数组类型，如果数组内是对象，则会调用`toString()`方法
+> blob url 可以通过`URL.createBlobURL()`创建。（前端代码生成，供浏览器下载）
+> DATA URL 一般不是所有浏览器都支持通过XMLHttpRequest获取资源的，但是blob URL可以通过这个获取资源。bolb url一般比data url 要短
+
+> form data
+
+# 跨域
+
+# 页面间通讯
+1. 通过window.open打开，获得window对象，然后通过操作或者通过postMessage来进行通讯，缺点是只能与自己打开的页面进行通讯，应用面窄。但是在跨域中依旧可以进行通讯
+2. localStorage
+设置共享区域的storage，storage会触发storage事件
+`window.onStorage`
+写入操作的页面下不会触发事件
+重复设置相同值不会触发
+
+> 由于sessionStorage只存在一个tab，没出现一个新的tab，都会产生一个新的sessionStorage
+
+
+# promise的实现
+- then返回一个promise
+
+# 数组
+- 浅拷贝 Array.from()，解构（迭代器）
+- 深拷贝
+  - 注意环、对象数组
+  - 特殊类型的值
+  - 方案：递归、JSON（JSON遇到环会报错，无法解析函数，对象忽略undefined，symbol，数组将NaN、null、undefined、infinity，symbol变成null）
+- 判断是否数组方法：
+  - Array.isArray()
+  - Object.prototype.toString.call()
+  - instanceOf 这个方法不准确
+
+# parseInt 
+第二个参数代表进制
+
+# 数组转字符串
+- join('')
+- 直接调用 + ，自动转换
+- 迭代
+- reduce
+
+# 字符串转数组
+- spit()
+- 迭代
+
+# 字符串转整数
+1. Number/ + / 等操作符
+2. parseInt
+3. parseFloat
+
+# 事件机制

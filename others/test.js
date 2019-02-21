@@ -1,16 +1,6 @@
-const target = {
-  name: 'foo'
-}
+const http = require('http')
 
-const { proxy, revoke } = Proxy.revocable(target, {
-  set(...args) {
-    return Reflect.set(...args)
-  }
-})
-
-proxy.name = 12
-console.log(proxy.name)
-
-revoke()
-
-proxy.name = 233
+let num = 0
+http.createServer((req, res) => {
+  console.log(++num)
+}).listen(8888)
