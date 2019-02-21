@@ -214,6 +214,10 @@ DOM2规定的时间流包括三个阶段：事件捕获阶段、处于目标阶�
 - event.stopPropagation()
 - window.event.cancelBubble = true //ie
 
+## 取消默认行为
+- event.preventDefault()
+- window.event.returnValue = false // ie
+
 ## 兼容写法
 > ie9兼容addEventListener写法
 1. addEventListener('', fn, false) attachEvent('on..', fn)
@@ -223,3 +227,67 @@ DOM2规定的时间流包括三个阶段：事件捕获阶段、处于目标阶�
 1. 几乎所有的事件代理(delegate)到`document`，达到性能优化的目的
 2. 对于每种类型的事件，拥有统一分发的函数`dispatchEvent`
 3. 事件对象event是合成对象（SyntheticEvent），不是原生事件
+
+### 原理
+1. 事件注册：
+  React在组件加载和更新时候，`ReactDOMComponent`会对事件属性进行处理，对相关事件进行注册和存储。document中注册的事件不处理具体事件，而是对事件进行分发。`ReactBrowserEventEmitter.listenTo`作为事件注册的入口，担负着事件注册和事件触发。注册事件的回调函数由`EventPluginHub`来统一管理(采用`listenerBank`来进行处理)，根据事件的类型（type）和组件标识（_rootNodeID）为key唯一标识事件并进行存储。
+2. 事件执行：
+  事件执行的时候，document上绑定事件`ReactEventListener.dispatchEvent`会对事件进行分发，先获取原生对象的`target`,然后找到组件实例。循环将所有父组件获取，保存在数组中。
+  `ReactEventEmitter`利用`EventPluginHub`中注入的`plugins`将原生事件转化为合成事件，然后批量执行存储的回调函数。
+  回调函数执行的时候分为两步，第一步将所有合成事件放到`事件队列`里面，第二部是逐个执行。浏览器原生会为每一个事件的每个listener创建一个事件对象，但是这会造成高额内存分配，所以React在启动的时候就为每种对象分配内存池，用到某一个事件对象的时候可以从内存池中复用，节省内存。(对应享元模式)
+3. 无法使用`event.stopPropagation()`停止事件传播，需要使用React定义的`event.preventDefault`
+
+```
+ *  - Top-level delegation is used to trap most native browser events. This
+ *    may only occur in the main thread and is the responsibility of
+ *    ReactDOMEventListener, which is injected and can therefore support
+ *    pluggable event sources. This is the only work that occurs in the main
+ *    thread.
+ *
+ *  - We normalize and de-duplicate events to account for browser quirks. This
+ *    may be done in the worker thread.
+ *
+ *  - Forward these native events (with the associated top-level type used to
+ *    trap it) to `EventPluginHub`, which in turn will ask plugins if they want
+ *    to extract any synthetic events.
+ *
+ *  - The `EventPluginHub` will then process each event by annotating them with
+ *    "dispatches", a sequence of listeners and IDs that care about that event.
+ *
+ *  - The `EventPluginHub` then dispatches the events.
+ * Overview of React and the event system:
+ *
+ * +------------+    .
+ * |    DOM     |    .
+ * +------------+    .
+ *       |           .
+ *       v           .
+ * +------------+    .
+ * | ReactEvent |    .
+ * |  Listener  |    .
+ * +------------+    .                         +-----------+
+ *       |           .               +--------+|SimpleEvent|
+ *       |           .               |         |Plugin     |
+ * +-----|------+    .               v         +-----------+
+ * |     |      |    .    +--------------+                    +------------+
+ * |     +-----------.--->|EventPluginHub|                    |    Event   |
+ * |            |    .    |              |     +-----------+  | Propagators|
+ * | ReactEvent |    .    |              |     |TapEvent   |  |------------|
+ * |  Emitter   |    .    |              |<---+|Plugin     |  |other plugin|
+ * |            |    .    |              |     +-----------+  |  utilities |
+ * |     +-----------.--->|              |                    +------------+
+ * |     |      |    .    +--------------+
+ * +-----|------+    .                ^        +-----------+
+ *       |           .                |        |Enter/Leave|
+ *       +           .                +-------+|Plugin     |
+ * +-------------+   .                         +-----------+
+ * | application |   .
+ * |-------------|   .
+ * |             |   .
+ * |             |   .
+ * +-------------+   .
+ *                   .
+ *    React Core     .  General Purpose Event Plugin System
+ */
+```
+
