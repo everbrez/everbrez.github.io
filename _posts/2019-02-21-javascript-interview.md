@@ -187,7 +187,7 @@ readystate：
 - reduce
 
 # 字符串转数组
-- spit()
+- split()
 - 迭代
 
 # 字符串转整数
@@ -196,3 +196,30 @@ readystate：
 3. parseFloat
 
 # 事件机制
+## 事件流
+事件流描述的是从页面中接收事件的顺序。
+IE的事件流是事件冒泡流，网景的是事件捕获流
+
+DOM2规定的时间流包括三个阶段：事件捕获阶段、处于目标阶段以及事件冒泡阶段。
+> 规范要求，捕获阶段不会涉及事件目标
+
+## Event对象上的3-5个属性或者方法
+1. event.target
+2. event.stopPropagation
+3. event.preventDefault
+4. event.currentTarget
+5. 各种按键以及相对位置
+
+## 阻止冒泡
+- event.stopPropagation()
+- window.event.cancelBubble = true //ie
+
+## 兼容写法
+> ie9兼容addEventListener写法
+1. addEventListener('', fn, false) attachEvent('on..', fn)
+2. removeEventListener('', fn, false) detachEvent('on..', fn)
+
+## React的事件处理机制
+1. 几乎所有的事件代理(delegate)到`document`，达到性能优化的目的
+2. 对于每种类型的事件，拥有统一分发的函数`dispatchEvent`
+3. 事件对象event是合成对象（SyntheticEvent），不是原生事件
