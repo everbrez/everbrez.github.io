@@ -41,3 +41,4 @@ function create(Con, ...args) {
   const result = Con.call(obj, ...args)
   return result instanceof Object ? result : obj
 }
+
