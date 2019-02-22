@@ -72,6 +72,14 @@ localeCompare 如果字符串在字母表中中应该排在字符串参数之前
   - this将不会自动转化成对象（如apply等需要自己显示传this对象）
   - 指向window的this将会变成undefined、
 - 新增保留关键字
+- 如果函数参数使用解构和默认值，使用严格模式会抛出语法错误
+
+```js
+'use strict'
+function(a = 1){ // syntax error
+    console.log(a)
+}
+```
 
 # call、apply和bind的区别
 - 其中bind返回一个函数，call和apply直接执行
