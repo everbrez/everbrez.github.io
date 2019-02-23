@@ -107,7 +107,7 @@ targetWindow:
 缺点：通过url，不够安全，大小限制，需要通过onhashchange事件，兼容性问题
 
 ### window.name
-原理：一个window生命周期内，window name属性共享
+原理：一个window生命周期内，window name属性共享，注意XSS注入
 过程：
 1. a页面打开b页面iframe
 2. b加载完之后将数据写进去window.name，然后跳转到和a同域的代理页面（同域才能操作）
