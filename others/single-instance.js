@@ -1,23 +1,14 @@
-class Person {
-  constructor(name) {
-    this.name = name
-  }
-
-  say() {
-    console.log(this.name)
-  }
-}
-
-function construct() {
+function getSingle(fn) {
   let instance = null
-  return function(target, arg) {
-    if (instance) {
+  return new Proxy(fn, {
+    construct(target, arg) {
+      if (!instance) instance = Reflect.construct(target, arg)
+      return instance
+    },
+
+    apply(...args) {
+      if (!instance) instance = Reflect.apply(args)
       return instance
     }
-    return instance = Reflect.construct(target, arg)
-  }
+  })
 }
-
-const PersonProxy = new Proxy(Person, {
-  construct: construct()
-})
