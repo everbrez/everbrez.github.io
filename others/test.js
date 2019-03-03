@@ -1,23 +1,6 @@
-class Person {
-  constructor(name) {
-    this.name = name
-  }
+const http = require('http')
 
-  say() {
-    console.log(this.name)
-  }
-}
-
-function construct() {
-  let instance = null
-  return function(target, arg) {
-    if (instance) {
-      return instance
-    }
-    return instance = Reflect.construct(target, arg)
-  }
-}
-
-const PersonProxy = new Proxy(Person, {
-  construct: construct()
-})
+http.createServer((req, res) => {
+  res.statusCode = 206
+  res.end('hello world!')
+}).listen(8888, () => console.log('listen on localhost:8888'))
