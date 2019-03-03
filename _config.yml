@@ -5,8 +5,8 @@
 
 # Site
 title: everbrez
-subtitle: 追梦者
-description: If I could be the hero
+subtitle: If I could be the hero
+description: everbrez's blog
 author: everbrez
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
@@ -227,8 +227,8 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
-  Twitter: twitter
-  Weibo: weibo
+  # Twitter: twitter
+  # Weibo: weibo
 
 
 # Sidebar Avatar
