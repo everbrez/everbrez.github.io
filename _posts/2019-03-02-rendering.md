@@ -6,16 +6,16 @@ categories: bowser
 ---
 
 # 浏览器渲染过程
-[](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_browser_high_level_structure)
-[](https://aerotwist.com/blog/the-anatomy-of-a-frame/)
-[](https://juejin.im/post/5a6547d0f265da3e283a1df7#heading-6)
-[](https://juejin.im/entry/59f010fdf265da4315231caa)
-[](https://github.com/hushicai/hushicai.github.io/issues/5)
-[](https://juejin.im/entry/59f010fdf265da4315231caa)
-[](https://zhuanlan.zhihu.com/p/44737615)
-[](https://lancelou.com/post/chrome-devtool-performance-tab-basic)
-[](https://segmentfault.com/a/1190000013627093#articleHeader0)
-[](https://developers.google.com/web/fundamentals/performance/rendering/?tdsourcetag=s_pcqq_aiomsg)
+[1](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_browser_high_level_structure)
+[2](https://aerotwist.com/blog/the-anatomy-of-a-frame/)
+[3](https://juejin.im/post/5a6547d0f265da3e283a1df7#heading-6)
+[4](https://juejin.im/entry/59f010fdf265da4315231caa)
+[5](https://github.com/hushicai/hushicai.github.io/issues/5)
+[6](https://juejin.im/entry/59f010fdf265da4315231caa)
+[7](https://zhuanlan.zhihu.com/p/44737615)
+[8](https://lancelou.com/post/chrome-devtool-performance-tab-basic)
+[9](https://segmentfault.com/a/1190000013627093#articleHeader0)
+[10](https://developers.google.com/web/fundamentals/performance/rendering/?tdsourcetag=s_pcqq_aiomsg)
 
 
 ## processes
