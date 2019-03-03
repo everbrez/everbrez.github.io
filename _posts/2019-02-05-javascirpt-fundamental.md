@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Javascript fundamental"
+title:  Javascript fundamental
 date:   2019-02-05 
 categories: Javascript 
 ---
@@ -133,6 +133,8 @@ class MyArray {
 | Number    | NaN 、 0        |
 | Object    | null            |
 | Undefined | undefined       |
+| Symbol | -（全部转化为true） |
+
 > 其他都转换成true
 > 在if语句中会自动执行Boolean进行类型转换
 
@@ -149,6 +151,7 @@ class MyArray {
 
 > 一元操作符 `+`与`Number()`作用相同
 > 在对象转基本类型的时候，可以使用`Symbol.toPrimitive`来控制其行为
+> Symbol不能转换为数字类型，否则会报错
 
 ```javascript
 class obj {
@@ -168,8 +171,8 @@ obj + 1  // 234
 2. 如果第一个非空格字符是数字，则解析至最后或者遇到非数字字符
 3. parseInt能够很好识别十进制、十六进制（ES5不具有解析八进制能力），但是parseFloat只能解析十进制，遇到十六进制会返回0
 4. parseInt可以提供第二参数来指定基数
-5. 如果输入是`null`时，返回`NaN`
-6. 如果输入是`''`时，返回`0`
+5. 如果输入是`null`时，返回`NaN`，而`Number`返回`0`
+6. 如果输入是`''`时，返回`NaN`，而`Number`返回`0`
 
 ### String()
 
@@ -181,18 +184,18 @@ obj + 1  // 234
 ### 操作符
 
 - 对于加法操作符`+`，如果有一个操作数为字符串，则将另一个转换为字符串，然后拼接字符串
-- 其他运算如果有一个操作数是字符串、布尔值、null或者undefined，先使用Number()转化为数值
+- 其他运算如果有一个操作数是字符串、布尔值，先使用Number()转化为数值
 - 对于`=`相等操作符与`!=`不相等操作符有
   1. 如果有一个操作符是布尔值，则比较前转化为数值
   2. 如果一个为字符串一个为数值，则先转化为数值
   3. 如果一个是对象一个不是，则先调用valueOf
   4. 如果两个都是对象，则比较他们是不是同一对象
   5. null == undefined
-  6. 比较相等性之前，不能将`null`和`undefined`转化为其他值
+  6. 比较相等性之前，**不能将`null`和`undefined`转化为其他值**
 
 
 
-> ES6 part
+===ES6 part===
 
 # 块状作用域
 1. 变量提升机制，一般函数优先度 > 变量。`let`与`const`变量不提升
@@ -371,6 +374,7 @@ const say = obj1.say
 obj2.say() // obj1's prototype
 
 say() // obj1's prototype
+
 ```
 
 ## 解构
@@ -444,7 +448,7 @@ Symbol可以使用在：
 
 一般可以通过下面的方法检索属性值
 
-- Object.keys() 返回可枚举型
+- Object.keys() 返回可枚举型，只枚举自身（for-in循环还枚举原型上的）
 - Object.getOwnPropertyNames() 不考虑枚举一律返回
 - Object.getOwnPropertySymbols() 检索对象中的symbol属性
 
@@ -720,7 +724,7 @@ ES5中传统继承内建对象：先由派生类型创建this，然后调用基�
 ES6中的继承：先由基类创建this值，访问基类所有内建功能，然后再正确地接收所有与之相关的功能。
 
 ## Symbol.species
-用于定义返回函数的静态访问器属性
+用于定义返回函数的静态访问器属性，允许子类覆盖构造函数。
 以下内建类型均已定义：
 - Array
 - ArrayBuffer
