@@ -356,14 +356,14 @@ const obj1 = {
 
 Object.setPrototypeOf(obj1, {
   say() {
-    console.log('obj1\'s prototype')
+    console.log(`obj1\'s prototype`)
   }
 })
 
 const obj2 = {}
 Object.setPrototypeOf(obj2, {
   say() {
-    console.log('obj2\' prototype')
+    console.log(`obj2\' prototype`)
   }
 })
 
