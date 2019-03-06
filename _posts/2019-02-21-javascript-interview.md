@@ -478,7 +478,6 @@ function test2() {
 
 ## resful API
 
-
 ## 静态资源放在另一个服务器上
 
 1. 不携带cookie，节省流量
@@ -495,3 +494,5 @@ function test2() {
 
 
 ## webpack底层实现原理
+
+## 判断图片是否加载完成：onload & onerror
