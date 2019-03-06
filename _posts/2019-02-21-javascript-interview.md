@@ -471,3 +471,5 @@ function test2() {
 ## 安全
 
 ## resful API
+
+## 判断图片是否加载完成：onload & onerror
