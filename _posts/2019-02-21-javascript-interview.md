@@ -376,6 +376,12 @@ SubType.prototype.sayAge = function(){console.log(this.age)}
 
 ## promise 实现
 
+要点：
+1. resolve, reject, then, catch,
+2. resolve 中 setTimeout 延时
+3. 判断状态，then方法中状态如果为fulfilled就直接调用
+4. 链式调用，then方法以及catch方法会返回一个promise
+
 ## async/await实现
 
 ## ES2016
@@ -471,3 +477,21 @@ function test2() {
 ## 安全
 
 ## resful API
+
+
+## 静态资源放在另一个服务器上
+
+1. 不携带cookie，节省流量
+2. 浏览器对一个域名有访问上限
+3. CDN
+
+## canvas优化性能的方法
+1. 预渲染
+2. 所有点一起绘制
+3. 重绘不需要清除整个画布
+4. 多个画布一起工作
+5. requestAnimationFrame
+6. GPU
+
+
+## webpack底层实现原理
