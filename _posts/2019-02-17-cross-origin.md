@@ -6,7 +6,11 @@ categories: javascript
 ---
 
 # 跨域
-如果协议、域名或者端口号有一个不同就是跨域
+
+如果协议、域名或者端口号有一个不同就是跨域。一般使用“`javascript:;`”以及"`about blank`"打开的页面会继承源。但是`data：`协议的不继承。
+在IE中，端口号不在同源策略中。两个高度互信的范围不遵循授权范围。
+
+可以使用`document.domain`修改
 
 ## 同源策略
 主要是用来防止CSRF（跨站请求伪造Cross Site Request Forgery）攻击的
