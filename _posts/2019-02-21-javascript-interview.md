@@ -478,6 +478,12 @@ function test2() {
 
 ## resful API
 
+- 动词 + 宾语（HTTP），如果服务器只接受两种方法（GET与POST），必须使用`X-HTTP-Override: Method`来指定
+- 宾语是名词，即URL下的目录一般都要求是名词
+- 避免多级URL，这种URL不利于拓展，一般除了第一级其他都使用查询字符串表示
+- 状态码必须精确，发生错误的时候不要返回200
+- 服务器回应要设为JSON格式，不要纯文本。（客户端请求时也要将ACCEPT设置为JSON）
+
 ## 静态资源放在另一个服务器上
 
 1. 不携带cookie，节省流量
@@ -491,7 +497,6 @@ function test2() {
 4. 多个画布一起工作
 5. requestAnimationFrame
 6. GPU
-
 
 ## webpack底层实现原理
 
