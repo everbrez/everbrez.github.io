@@ -11,3 +11,5 @@ Thumbs.db
 /vendor
 
 .vscode
+
+.sass-cache
