@@ -1,26 +1,34 @@
-function solution(str) {
-  let strArr = str.split('')
-  
-  for(let i = 0; i < strArr.length; i++) {
-    if(strArr[i] === strArr[i + 1]) {
-      if(strArr[i + 1] === strArr[i + 2]) {
-        strArr.splice(i, 1)
-        i -= 1
-        continue
-      }
+function quick3Way(arr = [], left = 0, right = arr.length) {
+  if(left >= right) return
 
-      if(strArr[i + 2] === strArr[i + 3] && strArr[i + 2] !== undefined) {
-        strArr.splice(i + 2, 1)
-        i -= 1
-        continue
-      }
-    }
-
+  let i = left + 1
+  let lf = left
+  let gt = right
+  const v = arr[left]
+  while(i < gt) {
+    if(arr[i] < v) exchange(arr, i++, lf++)
+    else if(arr[i] > v) exchange(arr, i, gt--)
+    else i++
   }
 
-  return strArr.join('')
+  quick3Way(arr, left, lf - 1)
+  quick3Way(arr, gt + 1, right)
+  return arr
+}
+
+function exchange(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]]
 }
 
 
-const res = solution('AABBCC')
-console.log(res)
+function random() {
+  return Math.random().toString().slice(2)
+}
+
+function test(sort) {
+  const data = random().split('').map(num => +num + +random().substr(0, 2))
+  const res = sort(data)
+  console.log(res === data.sort((a, b) => a - b))
+}
+
+for (let i = 0; i < 50; i++) test(quick3Way)

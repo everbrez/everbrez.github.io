@@ -34,7 +34,8 @@ class Heap {
       const left = 2 * i
       const right = 2 * i + 1
       let k = left
-      if(this.data[left] < this.data[right]) k = left
+      if(this.data[right] === undefined) k = left
+      else if(this.data[left] < this.data[right]) k = left
       else k = right
 
       if(k > this.size || this.data[i] < this.data[k]) break
@@ -45,12 +46,28 @@ class Heap {
   }
 }
 
-const heap = new Heap()
+function heapSort(arr = []) {
+  const heap = new Heap()
+  for(let i = 0; i < arr.length; i++) {
+    heap.insert(arr[i])
+  }
 
-heap.insert(3)
-heap.insert(23)
-heap.insert(3213)
-heap.insert(-3)
-heap.insert(13)
-heap.insert(323)
-heap.insert(523)
+  for(let i = 0; i < arr.length; i++) {
+    arr[i] = heap.pop()
+  }
+
+  return arr
+}
+
+
+function random() {
+  return Math.random().toString().slice(2)
+}
+
+function test(sort) {
+  const data = random().split('').map(num => +num + +random().substr(0, 2))
+  const res = sort(data)
+  console.log(res === data.sort((a, b) => a - b))
+}
+
+for(let i = 0; i < 50; i++) test(heapSort)
