@@ -38,7 +38,6 @@ bar.foo.call(window); // 'global'
 9. 实现两边定宽，中间自适应布局
 10. 写出display的值
 
-
 # 阿里评测
 
 1. 工作室负责任务，然后问了一下后台
@@ -55,14 +54,13 @@ bar.foo.call(window); // 'global'
 12. 熟悉什么算法
 13. 有什么问题・_・?
 
-
 # 腾讯二面（LMH）
+
 1. node
 2. 小程序
 3. 项目
 4. 做过哪些优化
 5. 要用 HTTP2.0 要怎么做
-
 
 # 网易一面
 
@@ -86,6 +84,7 @@ bar.foo.call(window); // 'global'
 
 
 # 腾讯一面（ZCX）
+
 1. React router的原理
 2. 跨域原理
 3. webpack怎么编译？原理
@@ -95,12 +94,14 @@ bar.foo.call(window); // 'global'
 7. animation参数
 
 # 网易一面（FZL）
+
 1. node流
 2. CSS3的新属性
 3. 算法：中位数
 4. 算法：100层楼，2颗弹珠
 
 # others
+
 1. 阅读这篇文章 https://overreacted.io/making-setinterval-declarative-with-react-hooks/ 
 2. 解释下这个 bug ( https://codesandbox.io/s/jj0mk6y683 ) 的产生原因。
 3. 比较这个 bug 的代码和 https://jsbin.com/jipivovasa/1/edit?js,console 
