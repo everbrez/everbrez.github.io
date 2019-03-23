@@ -2,11 +2,14 @@
 layout: post
 title:  "regular expression"
 date:   2019-02-05 
-categories: Javascript 
+categories: JavaScript
+tags: JavaScript regular-expression
 ---
+
 # 正则表达式
 
 ## 元字符及其作用
+
 字符 | 作用
 :--: | :--:
 \ | 转移字符，将下一个字符标记为特殊字符，如：\n表示换行符
@@ -40,6 +43,7 @@ x \| y | 匹配x或者y，如/apple\|pear/将匹配apple或者pear，而/appl(e\
 \un | n为4个16进制表示的Unicode字符。
 
 ## 优先度
+
 > 正则表达式从左到右进行计算
 
 运算符 | 描述
@@ -50,11 +54,14 @@ x \| y | 匹配x或者y，如/apple\|pear/将匹配apple或者pear，而/appl(e\
 \| | 或操作
 
 ## 使用正则表达式的函数
+
 ### 正则方法
+
 - exec() 返回一个数组，没匹配到返回null。
 - test() 返回一个Boolean值
 
 ### String方法
+
 - match() 加g与不加g返回不一样
 - search()  返回匹配的第一个字符index
 - replace() 

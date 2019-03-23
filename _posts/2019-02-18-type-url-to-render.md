@@ -2,14 +2,16 @@
 layout: post
 title: 输入URL到页面渲染的整个流程
 date:   2019-02-17
-categories: javascript
+categories: JavaScript
+tags: JavaScript type-url-to-render
 ---
 
 # overview
+
 1. 解析URL
 2. 输入的是URL还是搜索关键字
 3. 转换非ASCII字符
-4. 检查HSTS（HTTP严格传输安全）列表，包含了那些请求浏览器只使用HTTPS进行连接的网站[reason](https://www.jianshu.com/p/caa80c7ad45c)
+4. 检查HSTS（HTTP严格传输安全）列表，包含了那些请求浏览器只使用HTTPS进行连接的网站[Reason](https://www.jianshu.com/p/caa80c7ad45c)
 5. DNS查询
    1. 浏览器缓存
    2. 调用系统库方法`gethostbyname`
@@ -20,9 +22,11 @@ categories: javascript
 7. 解析、渲染
 
 # DNS查询
+
 Domain Name System
 
 在TCP握手之前就已经进行DNS查询了，由操作系统来查询，当要访问`www.google.com`时候，会进行这样操作：
+
 1. 检查hosts文件
 2. 操作系统会首先在本地的缓存中查询IP
 3. 如果没有的话就去系统配置的DNS服务器中查询
@@ -33,15 +37,15 @@ Domain Name System
 以上是DNS递归查询，还有一种是迭代查询:本地服务器将请求转发到根服务器
 
 > 当本地服务器代替客户端向其他服务器查询的时候，客户端完全处于等待状态
-
 > DNS查询DNS是应用层协议，是通过UDP进行的查询。DNS采用分布式集群的工作方式（单点故障，通信容量，远距离时间延迟，维护开销大）
 
 网址结构（从右往左）
-  - 根域
-  - 顶级域（国家或者组织）
-  - 第二层域
-  - 子域
-  - 主机名
+
+- 根域
+- 顶级域（国家或者组织）
+- 第二层域
+- 子域
+- 主机名
 
 使用UDP的原因：一次UDP名字交换可以短到两个包：一个查询宝和一个响应包。但是使用TCP的话，就需要9个包（其中3个握手4个挥手），开销大，所以前者（UDP）的效率很高。
 
@@ -51,4 +55,4 @@ DNS服务器一般分三种：根DNS服务器，顶级DNS服务器，权威DNS�
 
 其实512是为了让UDP报文中不会因为size > MTU而导致IP分片。IP分片发生后，只有一片有端口号，其他分片没有端口号，能否通过就取决于防火墙了，这对于是否通信成功是一个未知数。（以太网MTU=1500）
 
-DNS负载均衡
+## DNS负载均衡

@@ -2,7 +2,8 @@
 layout: post
 title:  Javascript fundamental
 date:   2019-02-05 
-categories: Javascript 
+categories: JavaScript
+tags: JavaScript
 ---
 
 # javascript 中的基本类型
@@ -16,16 +17,17 @@ categories: Javascript
 - object
 
 > 需要注意的地方
+
 - NaN属于number类型，且不等于自身，即
 
-```javascript
+```js
 NaN === NaN // false
 Object.is(NaN,NaN) // true
 ```
 
 - 对于基本类型来说，如果使用字面量的方式，那么这个变量只是一个字面量，只有在需要的时候才会转化为对应的类型，即
 
-```javascript
+```js
 const a = 11 // 此时a 为字面量，不是number类型
 a.toString() // 在需要的时候才会转化成相应类型
 
@@ -33,7 +35,9 @@ a.toString() // 在需要的时候才会转化成相应类型
 11.toString() // SyntaxError
 ```
 
-## typeof 操作符 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
+## typeof 操作符
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
 
 | Type                                                    | Result                   |
 | :------------------------------------------------------ | :----------------------- |
@@ -47,7 +51,7 @@ a.toString() // 在需要的时候才会转化成相应类型
 | Function object (implements [[Call]] in ECMA-262 terms) | "function"               |
 | Any other object                                        | "object"                 |
 
-```javascript
+```js
 typeof undefined // undefinded
 typeof null // object
 typeof 11 // number
@@ -85,16 +89,19 @@ Object.prototype.toString.call(() => {}) // "[object Function]"
 ```
 
 另外，在let、const以及class作用域中，如果在声明之前使用该变量，则会因为`temporal dead zone`而出现ReferenceError
+
 对于没声明的变量则会返回`'undefined'`
 
 **13.2.1** has an (informal?) note:[Ref: Why `typeof` is no longer “safe”](http://es-discourse.com/t/why-typeof-is-no-longer-safe/15)
 > let and const declarations define variables that are scoped to the running execution context’s LexicalEnvironment. The variables are created when their containing Lexical Environment is instantiated but **may not be accessed** in any way until the variable’s LexicalBinding is evaluated. A variable defined by a LexicalBinding with an Initializer **is assigned the value of its Initializer’s AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created**. If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when the LexicalBinding is evaluated.
 
-## instanceof 操作符 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
+## instanceof 操作符
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
 
 > instanceof 操作符 检测一个构造器的`prototype`是否存在于一个object的`原型链`中，即 instanceof 操作符左边是一个普通对象，右边是一个构造器（must be callable，or will get a TypeError）
 
-```javascript
+```js
 let simpleString = 'string'
 let stringObj = new String('string object')
 
@@ -107,7 +114,7 @@ nonObj instanceof Object // false
 
 instanceof 操作符可以通过 `Symbol.hasInstance` 来改变行为
 
-```javascript
+```js
 class MyArray {
     static [Symbol.hasInstance](instance) {
            return Array.isArray(instance)
@@ -126,14 +133,14 @@ class MyArray {
 
 ### Boolean()
 
-| 类型      | 转化成false的值 |
-| :-------- | :-------------- |
-| Boolean   | false           |
-| String    | ''              |
-| Number    | NaN 、 0        |
-| Object    | null            |
-| Undefined | undefined       |
-| Symbol | -（全部转化为true） |
+| 类型      | 转化成false的值     |
+| :-------- | :------------------ |
+| Boolean   | false               |
+| String    | ''                  |
+| Number    | NaN 、 0            |
+| Object    | null                |
+| Undefined | undefined           |
+| Symbol    | -（全部转化为true） |
 
 > 其他都转换成true
 > 在if语句中会自动执行Boolean进行类型转换
@@ -153,7 +160,7 @@ class MyArray {
 > 在对象转基本类型的时候，可以使用`Symbol.toPrimitive`来控制其行为
 > Symbol不能转换为数字类型，否则会报错
 
-```javascript
+```js
 class obj {
   static [Symbol.toPrimitive]() {
     return 233
@@ -194,10 +201,8 @@ obj + 1  // 234
   6. 比较相等性之前，**不能将`null`和`undefined`转化为其他值**
 
 
-
-===ES6 part===
-
 # 块状作用域
+
 1. 变量提升机制，一般函数优先度 > 变量。`let`与`const`变量不提升
 2. 使用块状作用域中的变量所在的代码块中（即块状作用域），在声明前变量语句执行之前，变量会处于临时死区。
 3. 禁止重声明
@@ -206,6 +211,7 @@ obj + 1  // 234
 6. `let`与`const`定义的变量作用域全局作用域上的时候，会遮蔽全局变量而不会覆盖
 
 # 字符集扩展
+
 1. code point
 2. 对于32bit的字符，`length` `charCodeAt` `/^.$/`出现错误
 3. `String.fromCodePoint()`,`.codePointAt`,`.normalize()`
@@ -288,7 +294,7 @@ Person.call(person)
 
 块状作用域中声明函数，处于临时死区
 
-### 箭头函数
+## 箭头函数
 
 - 没有this、super、argument和new.target的绑定
 - 不能通过new调用
@@ -497,9 +503,11 @@ let set = new Set()
 - delete()
 - clear()
 - forEach() 同数组方法，回调函数前两个参数相同，接受第二个参数（this的值）
+
 ```js
 dataSet.forEach(function(){}, this)
 ```
+
 - size
 
 > 展开运算符可以将想Set集合的可迭代对象转换为数组
@@ -535,16 +543,16 @@ Map的键名和对应的值支持所有的数据类型，键名的等价性是�
 - forEach() 同数组方法
 - size
 
-**Map同Set，可以通过传数组来初始化，其中每一个键值对都是一个数组**
+Map同Set，可以**通过传数组来初始化**，其中每一个键值对都是一个数组
 
 ## WeakMap
 
 WeakMap是弱引用的Map集合，在WeakMap的键名必须是一个对象，如果使用非对象也会报错。如果在弱引用之外不存在其他强引用，GC会回收这个对象，同时会移除WeakMap中的键值对。
+
 WeakMap键名对应的value是强引用，value可以是任何类型
 
 - WeakMap也不支迭代，所以不支持 clear、forEach
 - WeakMap可以用来创建私有数据
-
 
 # 迭代器iterator和生成器generator
 
@@ -565,16 +573,18 @@ function *generator() {
 
 每遇到一个`yield`语句都会停止，调用next方法的时候才会继续运行
 
-**yield关键字只能在generator内部运行，与return关键字一样，不能穿透函数边界，所以即使写在函数内部定义的函数里面也会报错 sytax error**
+`yield`关键字**只能在`generator`内部运行**，与return关键字一样，**不能穿透函数边界**，所以即使写在函数内部定义的函数里面也会报错`sytax error`
 
 > 不能使用箭头函数创建 生成器
 
 ### 可迭代对象
 
 可迭代对象具有 `Symbol.iterator`属性，其可以通过指定函数返回一个作用于附属对象的迭代器。其可以影响`for-of`循环
+
 > 如果将`for-of`循环用于不可迭代对象，null或undefined，会抛出错误 TypeError,而`for-in`就不会
 
 一般自己创建的对象都是不可迭代的，需要添加`Symbol.iterator`来使其变成可迭代对象
+
 ```js
 let collections = {
   *[Symbol.iterator]() {
@@ -614,15 +624,19 @@ Nodelist也内置了迭代器，其行为与数组一致
 第一次调用`next()`方法的时候无论传进什么参数都会被丢弃。由于传给`next()`方法的参数会代替上一个yield的返回值，而第一次调用next的时候前不会执行任何的yield语句，所以第一次调用next方法的时候传递参数是毫无意义的
 
 #### 在迭代器中抛出错误
+
 `iterator.throw(new Error())`，这个函数可以返回类似next返回的值（但是如果内部error没有处理，就会导致代码停止执行）
 
 #### 返回语句
+
 在生成器中定义函数的返回语句，会使迭代器提早进入done状态，并且当状态为done的时候，value为return的返回值（只会出现一次，之后会重置为undefined）
 
 > 展开运算符和`for-of`循环会直接忽略return语句的返回值，只要done状态变成true就会退出循环
 
 #### 委托生成器
+
 将两个迭代器合二为一
+
 ```js
 function *colorGenerator() {
   yield 'red'
@@ -657,8 +671,11 @@ iterator.next()
 > 也可以直接用于字符串，使用其默认迭代器 `yield *'Hello World'`
 
 # class
+
 属性只能在constructor上构建（React可以直接在class块内）
+
 `typeof`返回`function`
+
 1. 函数声明会提升，但是类声明和let、const一样不能被提升
 2. 在类中，所有方法都是不可枚举的
 3. 每一类都有一个名为`[[Construct]]`内部方法，而方法中不含有`[[Construct]]`，用new调用这些方法会导致报错（在对象中也是一样）
@@ -670,6 +687,7 @@ iterator.next()
 表达式声明与声明式声明区别：函数的name不同
 
 命名类表达式（跟function 一样）：
+
 ```js
 let personClass = class personClass2 {}
 
@@ -678,6 +696,7 @@ typeof personClass2 // undefined，只能在class内部使用
 ```
 
 另一种声明方式
+
 ```js
 let person = new class {
   constructor(name) {
@@ -693,6 +712,7 @@ let person = new class {
 ```
 
 ## 访问器属性
+
 ```js
 class {
   constructor(name) {
@@ -707,6 +727,7 @@ class {
 ```
 
 ## 生成器方法
+
 ```js
 class {
   *generator() {}
@@ -714,18 +735,23 @@ class {
 ```
 
 ## super
+
 1. 只能在派生的构造函数中使用super()，即使用的`extends`语法创建的类，否则会报错
 2. 构造函数在访问this之前一定要使用super，它负责初始化this，否则会报错
 3. 如果不想使用this只能让constructor返回一个对象，但是此时该对象不会继承prototype
 
-**如果基类有静态成员，那么这个静态成员在派生类中也可使用**
+如果基类有静态成员，那么这个**静态成员在派生类中也可使用**
 
 ES5中传统继承内建对象：先由派生类型创建this，然后调用基类型的构造函数（Array.apply(this)）。这意味着this的值开始是指向派生类型的，但随后会被来自（Array）的其他属性修饰
+
 ES6中的继承：先由基类创建this值，访问基类所有内建功能，然后再正确地接收所有与之相关的功能。
 
 ## Symbol.species
+
 用于定义返回函数的静态访问器属性，允许子类覆盖构造函数。
+
 以下内建类型均已定义：
+
 - Array
 - ArrayBuffer
 - Map
@@ -735,6 +761,7 @@ ES6中的继承：先由基类创建this值，访问基类所有内建功能，�
 - Typed arrays
 
 类似这样
+
 ```js
 class MyClass {
   get [Symbol.species]() {
@@ -753,34 +780,42 @@ class MyClass {
 - Array.prototype.findIndex()
 
 ## Array.of
+
 这个函数是为了解决ES5中 `new Array()`中的参数问题：如果输入的是一个数字，则变成数组的length，否则变成数组的元素
 在`Array.of()`中，无论输入什么都会变成数组的元素
 > Array.of 不通过 Symbol.species的值确定返回值类型，它使用当前构造函数的this值来确定正确的返回数据类型
 
 ## Array.from()
+
 类数组 => 数组
 接收一个**可迭代**对象或类数组对象作为第一个参数，最终返回一个数组，可用展开符来代替
 接收第二个参数表示映射，即类似 value => value + 1
 接收第三个参数表示映射函数的this值
 
 ## find() 和 findIndex()
+
 ===--> 与 indexOf 和 lastIndexOf
 二者都接收两个参数，一个为回调函数，另一个为回调函数的this值。回调函数的参数值与map一致
 如果符合查找的值，返回true。find会返回查找到的值，findIndex会返回查找的Index
 
 ## fill()
+
 接收三个参数，填充的值，开始索引（包含），结束索引（不包含），如果为负数则加上数组长度
 
 ## copyWithin()
+
 接收三个参数，第一个是开始填充值的索引位置，第二个是开始复制值的索引位置，第三个为指定停止复制值的位置
 > 如果只指定两个，就会从复制值索引开始直到没有更多可复制的值为止。
 
 ## includes()
-1. NaN可以识别
-2. -0 与 +0 不可以识别，与indexOf一样
+
+1. `NaN`可以识别
+2. `-0` 与 `+0` 不可以识别，与`indexOf`一样
+
 > indexOf 使用全等操作符
 
 ## 定型数组 typed array
+
 这是一种用于处理数值类型数据的专用数组，将任何数字转换为一个包含数字比特的数组
 
 定型数组支持存储和操作以下8中数据类型
@@ -797,6 +832,7 @@ class MyClass {
 - float64
 
 ### 数组缓冲区 ArrayBuffer
+
 ```js
 let buffer = new ArrayBuffer(10) // 分配 10Byte
 buffer.byteLength //10
@@ -804,21 +840,29 @@ let buffer2 = buffer.slice(3,4)
 buffer2.byteLength // 1
 buffer.byteLength // 10
 ```
+
 > 数组缓冲区包含的实际字节在创建时就已经确定，可以修改缓冲区数据，但是不能改变缓冲区的尺寸大小
 
 ### 视图 DataView
+
 视图是用来操作内存的接口，视图可以操作数组缓冲区或者缓冲区字节的子集，并按照其中一种数据类型来读取和写入数据。
+
 支持上述8种数据类型
+
 ```js
 let view = new DataView(buffer, 0, 8)
 ```
+
 DataView接收三个参数：buffer，开始索引，数量
+
 view属性
+
 - buffer
 - bufferOffset
 - byteLength
 
 #### 读取和写入数据
+
 get 方法接收两个参数：读取数据时的偏移量，可选布尔值，表示是否按照小序端进行读取。
 set 方法接收三个参数：写入数据偏移量，写入的值，可选布尔值
 
@@ -831,7 +875,9 @@ set 方法接收三个参数：写入数据偏移量，写入的值，可选布�
 - getFloat64()
 
 #### 定型数组即视图
+
 构造器
+
 - Int8Array
 - Uint8Array
 - ...
@@ -839,11 +885,15 @@ set 方法接收三个参数：写入数据偏移量，写入的值，可选布�
 # Promise
 
 ## 异步编程
+
 事件模型
+
 ```js
 element.onclick = function() {}
 ```
+
 回调模型
+
 ```js
 // nodejs
 readFile('file.txt', function(err, data) {
@@ -855,22 +905,27 @@ readFile('file.txt', function(err, data) {
 问题：回调地狱、实现并行执行两个操作，同时完成的时候通知或者优先完成的通知
 
 ## Promise的生命周期
+
 1. pending
 2. Fulfilled / Rejected
 
 内部属性`[[PromiseStatus]]`被用来表示Promise的三种状态`pending, fulfilled, rejected`
 
 方法：
+
 - then() 第一个为处理fulfilled状态的，第二个为处理rejected状态的
 - catch() 发生错误使触发状态的
 - finally() 无论是fulfilled还是rejected都会触发
+
 > 如果一个Promise处于已处理状态，在这之后添加到任务队列中的处理程序仍将执行，会将其添加到任务队列中。
 
 - Promise.resolve()
 - Promise.reject()
+
 > 如果向上面两个函数传进去一个Promise，则会把这个promise直接返回
 > 如果是非Promise的thenable对象（拥有then方法并且接收resolve和reject这两个参数的普通对象），
 > 那么这些方法会创建一个新的Promise，并在then函数中被调用
+
 ```js
 let thenable = {
   then(resolve, reject) {
@@ -885,21 +940,24 @@ let p = Promise.resolve(thenable)
 ```
 
 ## 错误处理
+
 对于一些没有拒绝处理程序的Promise，JavaScript没有强制报错(浏览器在最新版本报错)
 在nodejs中，处理Promise拒绝时会触发process对象上两个事件
+
 - unhandledRejection 在一个事件循环中
 - rejectionHandled 在一个事件循环后
 function(reason, promise){}
 
 在浏览器中，触发window上的两个事件：
+
 - unhandledrejection
 - rejectionhandled
 function(type, promise, reason)
 
 ## 多个Promise
+
 - Promise.all()，接收一个可迭代对象，如数组，then返回的value是一个数组，如果一个被拒绝，那么整个promise就会立即进入拒绝状态
 - Promise.race()，参数同上，如果有一个位于完成状态就会触发fulfilled或者rejected状态
-
 
 # Proxy and Reflection
 
@@ -908,6 +966,7 @@ function(type, promise, reason)
 每一个代理陷阱对应着一个命名和参数都相同的Reflect方法。
 
 代理陷阱（traps）
+
 1. get  read
 2. set  write
 3. has  in operator
@@ -925,7 +984,9 @@ function(type, promise, reason)
 > 不适用陷阱的处理程序等价于简单的转发处理
 
 ## set trap
+
 接收4个参数
+
 - trapTarget 代理的目标对象
 - key
 - value
@@ -959,6 +1020,7 @@ proxy.count = 'foo' // error
 ```
 
 Reflect是set陷阱对应的反射方法和默认特性，它和set代理陷阱一样接受相同的4个参数。
+
 如果属性已设置陷阱应该返回true，如果未设置返回false
 
 ## get trap
@@ -973,30 +1035,42 @@ Reflect是set陷阱对应的反射方法和默认特性，它和set代理陷阱�
 - key
 
 ## deleteProperty trap
+
 如果成功返回true，如果失败返回false
+
 - trapTarget
 - key
 
 ## 原型代理
+
 ### setPrototypeOf
+
 - trapTarget
 - proto
+
 > 如果操作失败返回一定是false，此时Object.setPrototypeOf()会报错
+
 ### getPrototypeOf
+
 - trapTarget
+
 > getPrototypeOf必须返回对象或者null
 > 返回值检查可以确保Object.getPrototypeOf()返回的总是预期的值
-
 > Object.getPrototypeOf如果传进一个非对象值，会强制转化成对象
 > 但是Reflect.getPrototypeOf传进一个非对象值，会报错
 
 ## 对象可扩展性陷阱
+
 ### preventExtensions & isExtensiable
+
 二者都接收一个参数，如果成功返回true，如果失败返回false
+
 - trapTarget
 
 ## 属性描述符陷阱
+
 ### defineProperty
+
 - target
 - key
 - descriptor
@@ -1004,7 +1078,9 @@ Reflect是set陷阱对应的反射方法和默认特性，它和set代理陷阱�
 > 无论什么对象传进去defineProperty，都只有属性：configurable,enumerable,value,writable,set,get,多余的将会设置为undefined
 **返回值为false或者true**，其中false时候会抛出错误
 Object.defineProperty 返回第一个参数，即target
+
 ### getOwnPropertyDescriptor
+
 - trapTarget
 - key
 
@@ -1019,6 +1095,7 @@ let descriptor = Reflect.getOwnPropertyDescriptor(2, 'name') // throw Error
 ```
 
 ## ownKeys trap
+
 ownKeys可以拦截内部方法`[[OwnPropertyKeys]]`，可以通过一个数组的值覆写其行为
 
 该数组被用于：
@@ -1033,6 +1110,7 @@ ownKeys可以拦截内部方法`[[OwnPropertyKeys]]`，可以通过一个数组�
 - trapTarget
 
 ## apply & construct
+
 改变函数内部`[[Call]]`以及`[[Contruct]]`属性
 
 ### apply
@@ -1145,7 +1223,6 @@ export { sum } from './main.js'
 2. 执行module.js
 3. 递归执行内联模块中导入的资源
 4. 执行内联模块.
-
 
 2. 文件当成woker执行
 

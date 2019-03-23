@@ -2,7 +2,8 @@
 layout: post
 title: webpack principle
 date:   2019-02-17
-categories: javascript
+categories: JavaScript
+tags: webpack
 ---
 
 1. 使用Babel转换代码，分析文件中的dependencies，转换代码code，返回对象。（parseCode）

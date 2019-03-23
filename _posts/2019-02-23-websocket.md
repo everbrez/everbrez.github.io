@@ -1,15 +1,19 @@
 ---
 layout: post
-title:  websocket
+title:  WebSocket
 date:   2019-02-22
-categories: NetWork 
+categories: NetWork
+tags: NetWork WebSocket
 ---
 
 WebSocket是一种在单个TCP连接上进行全双工通信的协议，是一个**持久化**的协议
 
+# WebSocket
+
 > HTTP协议有一个缺陷：通信只能由客户端发起
 
 特点：
+
 - 服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息。全双工通信
 - 建立在TCP协议之上，服务器端实现容易
 - 与HTTP有良好的兼容性，默认端口也是80和443，握手阶段使用HTTP协议
@@ -19,6 +23,7 @@ WebSocket是一种在单个TCP连接上进行全双工通信的协议，是一�
 - wss添加一个TLS安全层
 
 ## 与HTTP关系
+
 HTTP中一个request对应一个response，而且不能主动发送response。web socket 协议是基于HTTP协议的（借用了HTTP协议来完成一部分握手）
 
 ## 握手阶段
@@ -36,15 +41,18 @@ HTTP中一个request对应一个response，而且不能主动发送response。we
    4. Sec-WebSocket-Protocol: chat
 
 ## Ajax 轮询
+
 每个几秒发送一个请求，询问服务器是否有新信息
 这个需要服务器有很快处理速度和资源
 
 ## long poll 长轮询
+
 采用阻塞模型，客户端发起连接后，如果没有消息就一直不返回Response给客户端。直到有消息才返回。返回完之后，客户端再次建立连接
 
 需要服务器具有很高的并发
 
 ## socket
+
 由于HTTP是没有状态的，所以每次建立连接都要验证身份等等。。
 但是websocket在一次连接中，服务器会一直保留你的信息
 
@@ -58,6 +66,7 @@ HTTP中一个request对应一个response，而且不能主动发送response。we
 - WebSocket
 
 # socket.io
+
 1. 无限自动重连
 2. 心跳机制，允许让服务器和客户端知道哪个已经不需要通信了
 3. 二进制支持
