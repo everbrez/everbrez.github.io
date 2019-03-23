@@ -19,8 +19,8 @@ baseurl:
 permalink: pretty
 
 # Pagination
-paginate: 10
-#paginate_path: "/page:num/"
+paginate: 20
+# paginate_path: "/page:num/"
 #archive:
   #paginate: 10
   #paginate_path: "/page:num/"
@@ -118,7 +118,7 @@ index_with_subtitle: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  #categories: /categories/
+  categories: /categories/
   #about: /about/
   archives: /archives/
   tags: /tags/
@@ -151,8 +151,8 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
-#scheme: Mist
+# scheme: Muse
+scheme: Mist
 #scheme: Pisces
 
 
@@ -611,7 +611,7 @@ use_motion: true
 fancybox: true
 
 # Progress bar in the top during page loading.
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
