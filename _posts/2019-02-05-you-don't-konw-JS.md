@@ -2,12 +2,18 @@
 layout: post
 title:  "you don't kown js"
 date:   2019-02-05 
-categories: Javascript 
+categories: JavaScript
+tags: JavaScript
 ---
+
 # 作用域与闭包
+
 ## 作用域
+
 ### 编译原理
+
 传统的编译语言中，程序的源代码在执行之前必须经历三个步骤，统称为编译。
+
 - 分词/词法分析（Tokenizing/Lexing）
 这个过程将字符串分解成有意义的代码块，成为词法单元（token）。如：var a = 2; 会被分解成 var,a,=,2,;。
 - 解析，语法分析（parsing）
@@ -16,7 +22,9 @@ categories: Javascript
 这个过程将AST转化成可执行代码的过程（机器语言）。
 
 ### 作用域
+
 JavaScript编译到运行需要以下程序进行：
+
 - 引擎：从头到尾负责整个JavaScript的编译与运行
 - 编译器：负责词法分析与代码生成等工作
 - 作用域：负责收集并维护所有声明的标识符（变量）所进行的一系列查询
