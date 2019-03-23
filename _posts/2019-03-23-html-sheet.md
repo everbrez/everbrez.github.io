@@ -6,4 +6,7 @@ categories: HTML
 tags: HTML
 ---
 
+这是一个面向beginner的HTML CHEAT SHEET 
+
+
 ![HTML-CHEAT-SHEET](/assets/images/HTML-CHEAT-SHEET.jpg)
