@@ -100,7 +100,46 @@ bar.foo.call(window); // 'global'
 3. 算法：中位数
 4. 算法：100层楼，2颗弹珠
 
-# others
+# 腾讯一面（二）
+1. animation 与 transition区别？
+2. React事件
+3. map与reduce方法
+4. redux
+5. 实现布局：
+```
+---------------------
+---------  -----------
+|  图   |  |  title  |
+|  片   |  |----------
+|       |  | content |
+---------  -----------
+----------------------
+```
+1. 你对前端的理解
+2. position
+3. 谈谈项目
+4. 项目？你觉得为什么要生成随机类名呢
+5. 自己的项目？
+6. 之前面过一次，你觉得为什么没过
+
+# 腾讯一面（三）
+1. 自我介绍
+2. 介绍一下项目经历（就加入工作室之后做了什么项目）
+3. 介绍一下继承，讲了Object.create()，组合继承，ES6继承
+4. new操作符发生了什么
+5. 跨域，JSONP原理
+6. ES6
+7. 箭头函数
+8. 一个对话框，垂直居中，水平居中（其中内容还是可以点击），讲了fixed，margin auto
+9. 缓存和HTTP状态码304，HTTP头怎么设置的
+10. 输入URL到渲染---> TCP挥手
+11. redux的数据流向
+12. 事件委托
+13. React的事件机制
+14. 规划，投了什么，怎么学习，相比科班的优势
+15. 还有什么问题？
+
+# Others
 
 1. 阅读这篇文章 https://overreacted.io/making-setinterval-declarative-with-react-hooks/ 
 2. 解释下这个 bug ( https://codesandbox.io/s/jj0mk6y683 ) 的产生原因。
