@@ -3,7 +3,7 @@ layout: post
 title:  H5 Web API
 date:   2019-02-05 
 categories: JavaScript 
-tags: JvaScript HTML5 
+tags: JavaScript HTML5 
 ---
 
 # web Storage
