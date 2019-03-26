@@ -13,3 +13,5 @@ Thumbs.db
 .vscode
 
 .sass-cache
+
+Gemfile.lock
