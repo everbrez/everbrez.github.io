@@ -6,6 +6,8 @@ categories: interview
 tags: interview
 ---
 
+这篇文章是记录自己以及朋友在春招面试遇到的问题，以提醒自己还有什么没有掌握。
+
 # 腾讯一面
 
 1. typeof [] object
