@@ -12,6 +12,9 @@ tags: JavaScript React
 
 1. [react-in-depth](https://medium.com/react-in-depth)
 2. [Our Best Practices for Writing React Components](https://engineering.musefind.com/our-best-practices-for-writing-react-components-dec3eb5c3fc8)
+3. [What every front-end developer should know about change detection in Angular and React](https://blog.angularindepth.com/what-every-front-end-developer-should-know-about-change-detection-in-angular-and-react-508f83f58c6a)
+4. [Practical application of reverse-engineering guidelines and principles](https://medium.com/react-in-depth/practical-application-of-reverse-engineering-guidelines-and-principles-784c004bb657)
+
 
 # fiber
 
@@ -22,3 +25,8 @@ tags: JavaScript React
 > [In-depth explanation of state and props update in React](https://medium.com/react-in-depth/in-depth-explanation-of-state-and-props-update-in-react-51ab94563311)
 
 # React的事件机制
+
+# diff 算法的本质
+
+> [What every front-end developer should know about change detection in Angular and React](https://blog.angularindepth.com/what-every-front-end-developer-should-know-about-change-detection-in-angular-and-react-508f83f58c6a)
+
