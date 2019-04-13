@@ -91,10 +91,10 @@ CSS中，如果属性值前加两条中划线，代表这是一个自定义属�
 ```js
 // 获取相应的 DOM 元素
 const exampleElement = document.querySelector('.example')
-const colorSelector = document.querySelector('.color-selector')
+const colorPicker = document.querySelector('.color-picker')
 
 // 添加事件处理
-colorSelector.addEventListener('change', function(event){
+colorPicker.addEventListener('change', function(event){
   // 获取用户选择的颜色
   const selectedColor = event.target.value
   // 改变变量的值
