@@ -628,8 +628,8 @@ pace: true
 #pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
-# pace_theme: pace-theme-minimal
-pace_theme: pace-theme-bounce
+pace_theme: pace-theme-minimal
+# pace_theme: pace-theme-bounce
 
 # Canvas-nest
 canvas_nest: false
