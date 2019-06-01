@@ -11,6 +11,8 @@ REST 是 `REpresentational State Tranfer` 的缩写。
 # Reference
 1. [restful-api-design-13-best-practices-to-make-your-users-happy](https://blog.florimond.dev/restful-api-design-13-best-practices-to-make-your-users-happy)
 2. [api-design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design)
+3. [restful api](https://restfulapi.net/)
+4. [restful api 最佳实践](http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html)
 
 # 关于HTTP的基础概念
 
