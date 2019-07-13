@@ -64,6 +64,11 @@ typeof {} // object
 typeof [] // object
 typeof (() => {}) // function
 typeof Symbol() // symbol
+
+typeof 42n // bigint
+
+typeof String(2) // string
+typeof new String(2) // object
 ```
 
 > 除了`null`与`function`外，其他都跟其类型相同
@@ -199,7 +204,6 @@ obj + 1  // 234
   4. 如果两个都是对象，则比较他们是不是同一对象
   5. null == undefined
   6. 比较相等性之前，**不能将`null`和`undefined`转化为其他值**
-
 
 # 块状作用域
 
@@ -745,6 +749,21 @@ class {
 ES5中传统继承内建对象：先由派生类型创建this，然后调用基类型的构造函数（Array.apply(this)）。这意味着this的值开始是指向派生类型的，但随后会被来自（Array）的其他属性修饰
 
 ES6中的继承：先由基类创建this值，访问基类所有内建功能，然后再正确地接收所有与之相关的功能。
+
+super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+
+## 继承
+
+```js
+class A {
+}
+
+class B extends A {
+}
+
+B.__proto__ === A // true
+B.prototype.__proto__ === A.prototype // true
+```
 
 ## Symbol.species
 

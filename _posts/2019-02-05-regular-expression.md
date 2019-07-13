@@ -63,6 +63,7 @@ x \| y | 匹配x或者y，如/apple\|pear/将匹配apple或者pear，而/appl(e\
 ### String方法
 
 - match() 加g与不加g返回不一样
+  - 不加g的情况下，跟exec返回的相同，加了g的情况下返回匹配的数组
 - search()  返回匹配的第一个字符index
 - replace() 
 - split()
