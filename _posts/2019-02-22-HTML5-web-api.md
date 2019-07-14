@@ -16,7 +16,7 @@ tags: JavaScript HTML5
 
 # web socket
 
-# web worker & server worker
+# web worker & service worker
 
 # fetch
 

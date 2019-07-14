@@ -8,12 +8,12 @@ tags: JavaScript
 
 # PWA
 
-# WebAssembly
+# WebAssembly / WebComponent
 
-# CSS-in-JS
+# CSS-in-JS / JSS
 
 # typeScript
 
-# parcel
+# parcel VS webpack
 
 # yarn VS npm

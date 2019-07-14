@@ -47,7 +47,7 @@ significant * base^exponent
 
 所以现在我们可以知道“双精度64位二进制格式IEEE 754值”代表的是什么意思了：JavaScript的数字是根据IEEE 754标准，利用64位，以二进制的形式来存储的。
 
-[tu](/assets/images/64bit.png)
+![tu](/assets/images/64bit.png)
 
 其结构为：
 
