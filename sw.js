@@ -43,7 +43,7 @@ self.addEventListener('activate', (event) => {
 
 
 core.setCacheNameDetails({
-  prefix: 'hidiygod',
+  prefix: 'ever',
   suffix: cacheSuffixVersion
 });
 
@@ -112,33 +112,6 @@ routing.registerRoute(
  *
  * Method: networkOnly
  */
-routing.registerRoute(
-  new RegExp('https://api\.i-meto\.com'),
-  new NetworkOnly()
-);
-
-routing.registerRoute(
-  new RegExp('https://ip\.diygod\.me'),
-  new NetworkOnly()
-);
-
-routing.registerRoute(
-  new RegExp('https://hrddibvw\.api\.lncldglobal\.com'),
-  new NetworkOnly()
-);
-
-routing.registerRoute(
-  new RegExp('https://disqus\.diygod\.me'),
-  new NetworkFirst({
-    cacheName: 'api' + cacheSuffixVersion,
-    fetchOptions: {
-      mode: 'cors',
-      credentials: 'omit'
-    },
-    networkTimeoutSeconds: 3
-  })
-);
-
 /*
  * Disqus Related - No cache
  * disqus.com
