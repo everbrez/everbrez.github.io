@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript
 ---
 
+<!--more-->
+
 # 作用域与闭包
 
 ## 作用域

@@ -6,6 +6,8 @@ categories: algorithm
 tags: algorithm
 ---
 
+<!--more-->
+
 定义：
 
 - 如果存在正常数`c`和`n0`，使得当 `N >= n0` 时，`T(N) <= f(N)`，则记为 `T(N) = O(f(N))`

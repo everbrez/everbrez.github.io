@@ -8,6 +8,8 @@ tags: rendering
 
 # 浏览器渲染过程
 
+<!--more-->
+
 ## Reference
 
 1. [howbrowserswork](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_browser_high_level_structure)

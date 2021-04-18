@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-override: true
+override: false
 
 title: Hi, いざよい
 subtitle:

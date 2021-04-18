@@ -7,6 +7,6 @@ tags: HTML
 ---
 
 这是一个面向beginner的HTML CHEAT SHEET 
-
+<!--more-->
 
 ![HTML-CHEAT-SHEET](/assets/images/HTML-CHEAT-SHEET.jpg)

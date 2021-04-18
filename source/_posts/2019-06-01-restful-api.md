@@ -8,6 +8,8 @@ tags: backend
 
 REST 是 `REpresentational State Tranfer` 的缩写。
 
+<!--more-->
+
 # Reference
 1. [restful-api-design-13-best-practices-to-make-your-users-happy](https://blog.florimond.dev/restful-api-design-13-best-practices-to-make-your-users-happy)
 2. [api-design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design)

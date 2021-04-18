@@ -13,6 +13,8 @@ Web Component 包含了以下三个技术：
 3. HTML Templates: 使用`<template>`标签来定义一个html fragment，但是他们不立即渲染，只有用到他们的时候才会渲染。
 4. （未实现）HTML Modules
 
+<!--more-->
+
 > 需要注意的是，上面的技术都是独立的，就是可以单独使用其中一种技术，也可以结合起来使用，还可以结合现在类似React、Vue等库来使用。
 
 # Reference

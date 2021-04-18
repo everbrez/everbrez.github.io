@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript regular-expression
 ---
 
+<!--more-->
+
 # 正则表达式
 
 ## 元字符及其作用

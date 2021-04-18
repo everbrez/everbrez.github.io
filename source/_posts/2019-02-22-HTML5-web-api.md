@@ -6,6 +6,9 @@ categories: JavaScript
 tags: JavaScript HTML5 
 ---
 
+H5 Web API
+<!--more-->
+
 # web Storage
 
 # video & audio

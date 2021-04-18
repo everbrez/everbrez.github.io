@@ -6,6 +6,9 @@ categories: JavaScript
 tags: JavaScript
 ---
 
+javascript
+<!--more-->
+
 # 作用域
 
 ## 编译过程

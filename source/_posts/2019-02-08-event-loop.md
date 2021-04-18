@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript Event-Loop 
 ---
 
+<!--more-->
+
 [Node-loop](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/#what-is-the-event-loop)
 
 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)

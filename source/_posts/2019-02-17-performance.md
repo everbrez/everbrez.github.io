@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript perfomance NetWork
 ---
 
+<!--more-->
+
 # 网络部分
 
 1. 减少http请求

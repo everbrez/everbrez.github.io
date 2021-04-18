@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript cross-origin
 ---
 
+<!--more-->
+
 # 跨域
 
 如果协议、域名或者端口号有一个不同就是跨域。一般使用“`javascript:;`”以及"`about blank`"打开的页面会继承源。但是`data：`协议的不继承。

@@ -6,6 +6,9 @@ categories: AI
 tags: AI
 ---
 
+机器学习
+<!--more-->
+
 机器学习有多种定义。
 
 # Definition

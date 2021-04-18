@@ -6,6 +6,9 @@ categories: JavaScript
 tags: JavaScript
 ---
 
+typescript
+<!--more-->
+
 # 变量类型
 
 - number

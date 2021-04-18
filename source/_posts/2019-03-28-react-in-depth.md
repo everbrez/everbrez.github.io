@@ -8,6 +8,8 @@ tags: JavaScript React
 
 这篇文章记录学习React深层原理
 
+<!--more-->
+
 # Reference
 
 1. [react-in-depth](https://medium.com/react-in-depth)

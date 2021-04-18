@@ -6,7 +6,7 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server",
+    "server": "hexo server --config _config.yml",
     "update-theme": "git clone https://github.com/DIYgod/hexo-theme-sagiri.git themes/sagiri"
   },
   "hexo": {

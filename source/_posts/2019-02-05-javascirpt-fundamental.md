@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript
 ---
 
+<!--more-->
+
 # javascript 中的基本类型
 
 - undefined

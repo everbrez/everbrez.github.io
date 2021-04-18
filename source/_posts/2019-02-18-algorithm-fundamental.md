@@ -6,6 +6,8 @@ categories: algorithm
 tags: algorithm
 ---
 
+<!--more-->
+
 # 位运算
 
 十进制转二进制：

@@ -6,6 +6,8 @@ categories: JavaScript
 tags: JavaScript
 ---
 
+<!--more-->
+
 # 字符串方法
 
 ## 字符方法
