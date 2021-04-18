@@ -1,0 +1,9 @@
+{
+  "name": "Hi, いざよい",
+  "short_name": "Hi, いざよい",
+  "icons": [],
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "standalone",
+  "start_url": "/"
+}
