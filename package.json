@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo generate --config _config.yml",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server --config _config.yml",
@@ -29,5 +29,8 @@
     "hexo-renderer-swig": "^1.1.0",
     "hexo-server": "^2.0.0",
     "hexo-wordcount": "3.0.2"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
   }
 }
