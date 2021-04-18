@@ -5,12 +5,12 @@
 # Site
 override: false
 
-title: Hi, いざよい
+title: Hi, everbrez
 subtitle:
 author: everbrez
 description: If I could be the hero
 language: zh-Hans
-keywords: "いざよい,everbrez"
+keywords: "十六夜,everbrez"
 
 favicon:
   visibilitychange: true
