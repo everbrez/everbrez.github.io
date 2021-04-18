@@ -144,7 +144,7 @@ css: css
 js: js
 images: images
 
-header_bg: /images/header-sagiri.jpg
+header_bg: /assets/images/mainvisual.jpeg
 
 card:
   avatar: /images/card.jpg
