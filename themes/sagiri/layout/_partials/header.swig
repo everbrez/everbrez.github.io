@@ -60,10 +60,12 @@
 <div class="site-brand-wrapper">
   <div class="site-brand-bg">
     <picture>
+      <!--
       <source srcset="https://cdn.jsdelivr.net/gh/DIYgod/diygod.me@gh-pages/images/header-gyx-s.webp" type="image/webp" media="(max-width: 500px)">
       <source srcset="https://cdn.jsdelivr.net/gh/DIYgod/diygod.me@gh-pages/images/header-gyx-s.png" type="image/png" media="(max-width: 500px)">
-      <source srcset="https://cdn.jsdelivr.net/gh/DIYgod/diygod.me@gh-pages/images/header-gyx.webp" type="image/webp">
-      <img loading="lazy" src="https://cdn.jsdelivr.net/gh/DIYgod/diygod.me@gh-pages/images/header-gyx.png">
+      -->
+      <source srcset="/assets/images/mainvisual2.jpeg" type="image/webp">
+      <img style="transform: translateY(-300px)" loading="lazy" src="/assets/images/mainvisual2.jpeg">
     </picture>
   </div>
   <div class="site-meta {% if theme.custom_logo.enabled %}custom-logo{% endif %}">
