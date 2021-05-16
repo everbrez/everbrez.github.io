@@ -1,0 +1,3 @@
+[submodule "themes/shiki"]
+	path = themes/shiki
+	url = https://github.com/everbrez/hexo-theme-shiki.git
